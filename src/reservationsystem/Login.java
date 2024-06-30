@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.awt.Color;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import javax.swing.JTextField;
 
 /**
@@ -25,7 +26,7 @@ public class Login extends javax.swing.JFrame {
     ResultSet rst,rst2;
     long yearSectionID[];
     long contactID[];
-    int index=0;
+    int index=1;
 
     public Login() {
         initComponents();
@@ -57,6 +58,7 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         sexButtonGroup = new javax.swing.ButtonGroup();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         loginPanel = new javax.swing.JPanel();
         loginLabel = new javax.swing.JLabel();
@@ -66,7 +68,7 @@ public class Login extends javax.swing.JFrame {
         passwordLogTextField = new javax.swing.JPasswordField();
         clearLogButton = new javax.swing.JButton();
         loginButton = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        registerPanel = new javax.swing.JPanel();
         registrationLabel1 = new javax.swing.JLabel();
         nameLabel = new javax.swing.JLabel();
         firstNameTextField = new javax.swing.JTextField();
@@ -79,9 +81,6 @@ public class Login extends javax.swing.JFrame {
         studentRegLabel = new javax.swing.JLabel();
         studentRegTextField = new javax.swing.JTextField();
         birthDateLabel = new javax.swing.JLabel();
-        birthDateComboBox1 = new javax.swing.JComboBox<>();
-        birthDateComboBox2 = new javax.swing.JComboBox<>();
-        birthDateComboBox3 = new javax.swing.JComboBox<>();
         passwordRegLabel = new javax.swing.JLabel();
         passwordRegTextField = new javax.swing.JTextField();
         registerButton = new javax.swing.JButton();
@@ -93,6 +92,7 @@ public class Login extends javax.swing.JFrame {
         programComboBox2 = new javax.swing.JComboBox<>();
         programComboBox1 = new javax.swing.JComboBox<>();
         contactTextField = new javax.swing.JTextField();
+        birthDateChooser = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,17 +169,17 @@ public class Login extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Login", loginPanel);
 
-        jPanel2.setForeground(new java.awt.Color(153, 153, 153));
-        jPanel2.setLayout(null);
+        registerPanel.setForeground(new java.awt.Color(153, 153, 153));
+        registerPanel.setLayout(null);
 
         registrationLabel1.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
         registrationLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         registrationLabel1.setText("Registration");
-        jPanel2.add(registrationLabel1);
+        registerPanel.add(registrationLabel1);
         registrationLabel1.setBounds(0, 42, 400, 32);
 
         nameLabel.setText("Name");
-        jPanel2.add(nameLabel);
+        registerPanel.add(nameLabel);
         nameLabel.setBounds(32, 80, 37, 30);
 
         firstNameTextField.setForeground(new java.awt.Color(153, 153, 153));
@@ -199,7 +199,7 @@ public class Login extends javax.swing.JFrame {
                 firstNameTextFieldActionPerformed(evt);
             }
         });
-        jPanel2.add(firstNameTextField);
+        registerPanel.add(firstNameTextField);
         firstNameTextField.setBounds(81, 80, 120, 30);
 
         lastNameTextField.setForeground(new java.awt.Color(153, 153, 153));
@@ -217,11 +217,11 @@ public class Login extends javax.swing.JFrame {
                 lastNameTextFieldActionPerformed(evt);
             }
         });
-        jPanel2.add(lastNameTextField);
+        registerPanel.add(lastNameTextField);
         lastNameTextField.setBounds(202, 80, 140, 30);
 
         emailLabel.setText("Email");
-        jPanel2.add(emailLabel);
+        registerPanel.add(emailLabel);
         emailLabel.setBounds(32, 119, 37, 16);
 
         emailTextField.setForeground(new java.awt.Color(153, 153, 153));
@@ -244,11 +244,11 @@ public class Login extends javax.swing.JFrame {
                 emailTextFieldActionPerformed(evt);
             }
         });
-        jPanel2.add(emailTextField);
+        registerPanel.add(emailTextField);
         emailTextField.setBounds(80, 110, 261, 30);
 
         sexLabel.setText("Sex");
-        jPanel2.add(sexLabel);
+        registerPanel.add(sexLabel);
         sexLabel.setBounds(32, 146, 30, 16);
 
         sexButtonGroup.add(jRadioButton1);
@@ -258,7 +258,7 @@ public class Login extends javax.swing.JFrame {
                 jRadioButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jRadioButton1);
+        registerPanel.add(jRadioButton1);
         jRadioButton1.setBounds(81, 144, 62, 21);
 
         sexButtonGroup.add(jRadioButton2);
@@ -268,11 +268,11 @@ public class Login extends javax.swing.JFrame {
                 jRadioButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jRadioButton2);
+        registerPanel.add(jRadioButton2);
         jRadioButton2.setBounds(149, 144, 61, 21);
 
         studentRegLabel.setText("Student Number");
-        jPanel2.add(studentRegLabel);
+        registerPanel.add(studentRegLabel);
         studentRegLabel.setBounds(32, 171, 88, 22);
 
         studentRegTextField.setForeground(new java.awt.Color(153, 153, 153));
@@ -295,27 +295,15 @@ public class Login extends javax.swing.JFrame {
                 studentRegTextFieldActionPerformed(evt);
             }
         });
-        jPanel2.add(studentRegTextField);
+        registerPanel.add(studentRegTextField);
         studentRegTextField.setBounds(132, 171, 210, 22);
 
         birthDateLabel.setText("Birth date");
-        jPanel2.add(birthDateLabel);
+        registerPanel.add(birthDateLabel);
         birthDateLabel.setBounds(32, 202, 65, 16);
 
-        birthDateComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Month", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
-        jPanel2.add(birthDateComboBox1);
-        birthDateComboBox1.setBounds(103, 199, 105, 22);
-
-        birthDateComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Day", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-        jPanel2.add(birthDateComboBox2);
-        birthDateComboBox2.setBounds(214, 199, 72, 22);
-
-        birthDateComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985", "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977", "1976", "1975", "1974", "1973", "1972", "1971", "1970", "1969", "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961", "1960", "1959", "1958", "1957", "1956", "1955", "1954", "1953", "1952", "1951", "1950" }));
-        jPanel2.add(birthDateComboBox3);
-        birthDateComboBox3.setBounds(292, 199, 72, 22);
-
         passwordRegLabel.setText("Password");
-        jPanel2.add(passwordRegLabel);
+        registerPanel.add(passwordRegLabel);
         passwordRegLabel.setBounds(33, 350, 53, 16);
 
         passwordRegTextField.setForeground(new java.awt.Color(153, 153, 153));
@@ -338,7 +326,7 @@ public class Login extends javax.swing.JFrame {
                 passwordRegTextFieldActionPerformed(evt);
             }
         });
-        jPanel2.add(passwordRegTextField);
+        registerPanel.add(passwordRegTextField);
         passwordRegTextField.setBounds(92, 344, 254, 28);
 
         registerButton.setText("Register");
@@ -347,7 +335,7 @@ public class Login extends javax.swing.JFrame {
                 registerButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(registerButton);
+        registerPanel.add(registerButton);
         registerButton.setBounds(221, 384, 106, 23);
 
         clearRegButton.setText("Clear");
@@ -356,15 +344,15 @@ public class Login extends javax.swing.JFrame {
                 clearRegButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(clearRegButton);
+        registerPanel.add(clearRegButton);
         clearRegButton.setBounds(65, 384, 106, 23);
 
         contactLabel.setText("Contact #");
-        jPanel2.add(contactLabel);
+        registerPanel.add(contactLabel);
         contactLabel.setBounds(32, 233, 51, 22);
 
         addressLabel1.setText("Address");
-        jPanel2.add(addressLabel1);
+        registerPanel.add(addressLabel1);
         addressLabel1.setBounds(32, 261, 50, 22);
 
         addressTextField.setForeground(new java.awt.Color(0, 0, 0));
@@ -386,11 +374,11 @@ public class Login extends javax.swing.JFrame {
                 addressTextFieldActionPerformed(evt);
             }
         });
-        jPanel2.add(addressTextField);
+        registerPanel.add(addressTextField);
         addressTextField.setBounds(90, 260, 254, 30);
 
         sexLabel1.setText("Program");
-        jPanel2.add(sexLabel1);
+        registerPanel.add(sexLabel1);
         sexLabel1.setBounds(32, 292, 46, 16);
 
         programComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year" }));
@@ -399,11 +387,11 @@ public class Login extends javax.swing.JFrame {
                 programComboBox2ActionPerformed(evt);
             }
         });
-        jPanel2.add(programComboBox2);
+        registerPanel.add(programComboBox2);
         programComboBox2.setBounds(90, 316, 120, 22);
 
         programComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Course", "Bachelor of Science in Computer Engineering", "Bachelor of Science in Hospitality Management", "Bachelor of Science in Information Technology", "Bachelor of Science in Office Administration" }));
-        jPanel2.add(programComboBox1);
+        registerPanel.add(programComboBox1);
         programComboBox1.setBounds(90, 289, 255, 22);
 
         contactTextField.setForeground(new java.awt.Color(0, 0, 0));
@@ -412,10 +400,12 @@ public class Login extends javax.swing.JFrame {
                 contactTextFieldFocusGained(evt);
             }
         });
-        jPanel2.add(contactTextField);
+        registerPanel.add(contactTextField);
         contactTextField.setBounds(90, 230, 254, 30);
+        registerPanel.add(birthDateChooser);
+        birthDateChooser.setBounds(90, 200, 250, 22);
 
-        jTabbedPane1.addTab("Registration", jPanel2);
+        jTabbedPane1.addTab("Registration", registerPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -539,9 +529,8 @@ public class Login extends javax.swing.JFrame {
         String email = emailTextField.getText();
         String sex = jRadioButton1.isSelected() ? "Male" : "Female";
         String studentNumber = studentRegTextField.getText();
-        String birthDate = birthDateComboBox1.getSelectedItem().toString() + "/" +
-                birthDateComboBox2.getSelectedItem().toString() + "/" +
-                birthDateComboBox3.getSelectedItem().toString();
+        SimpleDateFormat Date_Format = new SimpleDateFormat("yyyy-MM-dd"); 
+        String birthDate = Date_Format.format(birthDateChooser.getDate());
         String contactNumber = contactTextField.getText();
         String address = addressTextField.getText();
         String programCourse = programComboBox1.getSelectedItem().toString();
@@ -555,36 +544,18 @@ public class Login extends javax.swing.JFrame {
             Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
                
             
-            String sql = "INSERT INTO student (firstName, lastName, sex, studentNumber,  program, password) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO student (firstName, lastName, sex, studentNumber, birthDate, program, password, yearSectionID, contactID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, firstName);
             statement.setString(2, lastName);
             statement.setString(3, sex);
             statement.setString(4, studentNumber);
-            //statement.setDate(5, java.sql.Date.valueOf(birthDate));
-            statement.setString(5, programCourse);
-            /*
-            try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
-            String contactIdQuery = "SELECT contactID FROM contact WHERE email = ? AND contactNumber = ? AND address = ?";
-                try (PreparedStatement contactIdStmt = conn.prepareStatement(contactIdQuery)) {
-                    contactIdStmt.setString(1, email);
-                    contactIdStmt.setString(2, contactNumber); // Set the contact number
-                    contactIdStmt.setString(3, address);
-                    try (ResultSet contactIdRs = contactIdStmt.executeQuery()) {
-                        if (contactIdRs.next()) {
-                            long contactId = contactIdRs.getLong("contactID");
-                        // Set the retrieved contactID in your statement
-                            statement.setLong(8, contactId);
-                } else {
-                    // Handle the case where no contactID is found for the given email
-                    // You can log an error or display a message to the user
-                        }
-                    }
-                }
-            }*/
-            statement.setString(6, password);
-            //statement.setLong(8, yearSectionID[programComboBox2.getSelectedIndex()]);
+            statement.setString(5, birthDate);
+            statement.setString(6, programCourse);
+            statement.setString(7, password);
+            statement.setLong(8, yearSectionID[programComboBox2.getSelectedIndex()]);
+            
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -639,11 +610,7 @@ public class Login extends javax.swing.JFrame {
         }
 
         sexButtonGroup.clearSelection();
-
-        birthDateComboBox1.setSelectedIndex(0);
-        birthDateComboBox2.setSelectedIndex(0);
-        birthDateComboBox3.setSelectedIndex(0);
-        
+        birthDateChooser.setCalendar(null);
         programComboBox1.setSelectedIndex(0);
         programComboBox2.setSelectedIndex(0);
     }//GEN-LAST:event_clearRegButtonActionPerformed
@@ -716,9 +683,7 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addressLabel1;
     private javax.swing.JTextField addressTextField;
-    private javax.swing.JComboBox<String> birthDateComboBox1;
-    private javax.swing.JComboBox<String> birthDateComboBox2;
-    private javax.swing.JComboBox<String> birthDateComboBox3;
+    private com.toedter.calendar.JDateChooser birthDateChooser;
     private javax.swing.JLabel birthDateLabel;
     private javax.swing.JButton clearLogButton;
     private javax.swing.JButton clearRegButton;
@@ -727,7 +692,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel emailLabel;
     private javax.swing.JTextField emailTextField;
     private javax.swing.JTextField firstNameTextField;
-    private javax.swing.JPanel jPanel2;
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -743,6 +708,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> programComboBox1;
     private javax.swing.JComboBox<String> programComboBox2;
     private javax.swing.JButton registerButton;
+    private javax.swing.JPanel registerPanel;
     private javax.swing.JLabel registrationLabel1;
     private javax.swing.ButtonGroup sexButtonGroup;
     private javax.swing.JLabel sexLabel;

@@ -4,7 +4,12 @@
  */
 package reservationsystem;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.awt.Color;
+import java.sql.ResultSet;
 import javax.swing.JTextField;
 
 /**
@@ -12,12 +17,39 @@ import javax.swing.JTextField;
  * @author Julio
  */
 public class Login extends javax.swing.JFrame {
+    
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/studentreservation";
+    private static final String USER = "root";
+    private static final String PASS = "";
+    PreparedStatement pst,pst2;
+    ResultSet rst,rst2;
+    long yearSectionID[];
+    long contactID[];
+    int index=0;
 
     public Login() {
         initComponents();
         setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // this method display the JFrame to center position of a screen
         setVisible(true);
+        
+        yearSectionID = new long[100];
+        try{
+            Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            String query = "Select yearSectionID, yearsection From yearsection";
+            pst = connection.prepareStatement(query);
+            rst = pst.executeQuery();
+            while(rst.next()){
+                yearSectionID[index] = rst.getLong(1);
+                index++;
+                programComboBox2.addItem(rst.getString(2));
+            }
+            rst.close();
+            
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -59,9 +91,8 @@ public class Login extends javax.swing.JFrame {
         addressTextField = new javax.swing.JTextField();
         sexLabel1 = new javax.swing.JLabel();
         programComboBox2 = new javax.swing.JComboBox<>();
-        programComboBox3 = new javax.swing.JComboBox<>();
         programComboBox1 = new javax.swing.JComboBox<>();
-        contactField = new javax.swing.JTextField();
+        contactTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,7 +103,7 @@ public class Login extends javax.swing.JFrame {
 
         loginLabel.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
         loginLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        loginLabel.setText("LOGIN");
+        loginLabel.setText("Login");
 
         studentLogTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,7 +302,7 @@ public class Login extends javax.swing.JFrame {
         jPanel2.add(birthDateLabel);
         birthDateLabel.setBounds(32, 202, 65, 16);
 
-        birthDateComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Month", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        birthDateComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Month", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
         jPanel2.add(birthDateComboBox1);
         birthDateComboBox1.setBounds(103, 199, 105, 22);
 
@@ -362,21 +393,27 @@ public class Login extends javax.swing.JFrame {
         jPanel2.add(sexLabel1);
         sexLabel1.setBounds(32, 292, 46, 16);
 
-        programComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year", "1", "2", "3", "4", "5" }));
+        programComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year" }));
+        programComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                programComboBox2ActionPerformed(evt);
+            }
+        });
         jPanel2.add(programComboBox2);
-        programComboBox2.setBounds(90, 316, 72, 22);
-
-        programComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Section", "1", "2", "3", "4", "5" }));
-        jPanel2.add(programComboBox3);
-        programComboBox3.setBounds(174, 316, 73, 22);
+        programComboBox2.setBounds(90, 316, 120, 22);
 
         programComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Course", "Bachelor of Science in Computer Engineering", "Bachelor of Science in Hospitality Management", "Bachelor of Science in Information Technology", "Bachelor of Science in Office Administration" }));
         jPanel2.add(programComboBox1);
         programComboBox1.setBounds(90, 289, 255, 22);
 
-        contactField.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel2.add(contactField);
-        contactField.setBounds(90, 230, 254, 30);
+        contactTextField.setForeground(new java.awt.Color(0, 0, 0));
+        contactTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                contactTextFieldFocusGained(evt);
+            }
+        });
+        jPanel2.add(contactTextField);
+        contactTextField.setBounds(90, 230, 254, 30);
 
         jTabbedPane1.addTab("Registration", jPanel2);
 
@@ -497,7 +534,67 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_studentRegTextFieldActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        // TODO add your handling code here:
+        String firstName = firstNameTextField.getText();
+        String lastName = lastNameTextField.getText();
+        String email = emailTextField.getText();
+        String sex = jRadioButton1.isSelected() ? "Male" : "Female";
+        String studentNumber = studentRegTextField.getText();
+        String birthDate = birthDateComboBox1.getSelectedItem().toString() + "/" +
+                birthDateComboBox2.getSelectedItem().toString() + "/" +
+                birthDateComboBox3.getSelectedItem().toString();
+        String contactNumber = contactTextField.getText();
+        String address = addressTextField.getText();
+        String programCourse = programComboBox1.getSelectedItem().toString();
+        String password = passwordRegTextField.getText();
+        //String contact = email + contactNumber + address;
+        
+        
+        
+        
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+               
+            
+            String sql = "INSERT INTO student (firstName, lastName, sex, studentNumber,  program, password) VALUES (?, ?, ?, ?, ?, ?)";
+            
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, firstName);
+            statement.setString(2, lastName);
+            statement.setString(3, sex);
+            statement.setString(4, studentNumber);
+            //statement.setDate(5, java.sql.Date.valueOf(birthDate));
+            statement.setString(5, programCourse);
+            /*
+            try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
+            String contactIdQuery = "SELECT contactID FROM contact WHERE email = ? AND contactNumber = ? AND address = ?";
+                try (PreparedStatement contactIdStmt = conn.prepareStatement(contactIdQuery)) {
+                    contactIdStmt.setString(1, email);
+                    contactIdStmt.setString(2, contactNumber); // Set the contact number
+                    contactIdStmt.setString(3, address);
+                    try (ResultSet contactIdRs = contactIdStmt.executeQuery()) {
+                        if (contactIdRs.next()) {
+                            long contactId = contactIdRs.getLong("contactID");
+                        // Set the retrieved contactID in your statement
+                            statement.setLong(8, contactId);
+                } else {
+                    // Handle the case where no contactID is found for the given email
+                    // You can log an error or display a message to the user
+                        }
+                    }
+                }
+            }*/
+            statement.setString(6, password);
+            //statement.setLong(8, yearSectionID[programComboBox2.getSelectedIndex()]);
+
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("A new user was inserted successfully!");
+            }
+
+            connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void passwordRegTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordRegTextFieldActionPerformed
@@ -529,7 +626,7 @@ public class Login extends javax.swing.JFrame {
         Color placeholderColor = new Color(153, 153, 153);
 
         JTextField[] registrationTextFields = {
-            firstNameTextField, lastNameTextField, emailTextField, studentRegTextField, passwordRegTextField,contactField,addressTextField
+            firstNameTextField, lastNameTextField, emailTextField, studentRegTextField, passwordRegTextField,contactTextField,addressTextField
         };
 
         String[] defaultTexts = {
@@ -549,11 +646,11 @@ public class Login extends javax.swing.JFrame {
         
         programComboBox1.setSelectedIndex(0);
         programComboBox2.setSelectedIndex(0);
-        programComboBox3.setSelectedIndex(0);
     }//GEN-LAST:event_clearRegButtonActionPerformed
 
     private void addressTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addressTextFieldFocusGained
-        // TODO add your handling code here:
+        // set black color
+        addressTextField.setForeground(new Color(0,0,0));
     }//GEN-LAST:event_addressTextFieldFocusGained
 
     private void addressTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addressTextFieldFocusLost
@@ -571,6 +668,15 @@ public class Login extends javax.swing.JFrame {
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void contactTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactTextFieldFocusGained
+        // set black color
+            contactTextField.setForeground(new Color(0,0,0));
+    }//GEN-LAST:event_contactTextFieldFocusGained
+
+    private void programComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_programComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_programComboBox2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -616,8 +722,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel birthDateLabel;
     private javax.swing.JButton clearLogButton;
     private javax.swing.JButton clearRegButton;
-    private javax.swing.JTextField contactField;
     private javax.swing.JLabel contactLabel;
+    private javax.swing.JTextField contactTextField;
     private javax.swing.JLabel emailLabel;
     private javax.swing.JTextField emailTextField;
     private javax.swing.JTextField firstNameTextField;
@@ -636,7 +742,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField passwordRegTextField;
     private javax.swing.JComboBox<String> programComboBox1;
     private javax.swing.JComboBox<String> programComboBox2;
-    private javax.swing.JComboBox<String> programComboBox3;
     private javax.swing.JButton registerButton;
     private javax.swing.JLabel registrationLabel1;
     private javax.swing.ButtonGroup sexButtonGroup;

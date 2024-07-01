@@ -60,7 +60,7 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         sexButtonGroup = new javax.swing.ButtonGroup();
-        jCalendar1 = new com.toedter.calendar.JCalendar();
+        jButton1 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         loginPanel = new javax.swing.JPanel();
         loginLabel = new javax.swing.JLabel();
@@ -93,8 +93,10 @@ public class Login extends javax.swing.JFrame {
         programComboBox2 = new javax.swing.JComboBox<>();
         programComboBox1 = new javax.swing.JComboBox<>();
         contactTextField = new javax.swing.JTextField();
-        birthDateChooser = new com.toedter.calendar.JDateChooser();
         passwordRegField = new javax.swing.JPasswordField();
+        birthDateChooser = new com.toedter.calendar.JDateChooser();
+
+        jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -386,8 +388,6 @@ public class Login extends javax.swing.JFrame {
         });
         registerPanel.add(contactTextField);
         contactTextField.setBounds(90, 230, 254, 30);
-        registerPanel.add(birthDateChooser);
-        birthDateChooser.setBounds(90, 200, 250, 22);
 
         passwordRegField.setText("must contain at least 8 characters");
         passwordRegField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -405,6 +405,8 @@ public class Login extends javax.swing.JFrame {
         });
         registerPanel.add(passwordRegField);
         passwordRegField.setBounds(90, 342, 260, 30);
+        registerPanel.add(birthDateChooser);
+        birthDateChooser.setBounds(90, 200, 250, 22);
 
         jTabbedPane1.addTab("Registration", registerPanel);
 
@@ -665,7 +667,9 @@ public class Login extends javax.swing.JFrame {
             
             ResultSet rs = statement.executeQuery();
             if (rs.next()){
-                JOptionPane.showMessageDialog(rootPane, "Login");
+                dashboardFrame db = new dashboardFrame(studentNumber);
+                db.setVisible(true);
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Login Failed");
             }
@@ -748,7 +752,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel emailLabel;
     private javax.swing.JTextField emailTextField;
     private javax.swing.JTextField firstNameTextField;
-    private com.toedter.calendar.JCalendar jCalendar1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTabbedPane jTabbedPane1;

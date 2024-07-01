@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package reservationsystem;
-
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -22,10 +23,9 @@ public class Login extends javax.swing.JFrame {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/studentreservation";
     private static final String USER = "root";
     private static final String PASS = "";
-    PreparedStatement pst,pst2;
-    ResultSet rst,rst2;
+    PreparedStatement pst;
+    ResultSet rst;
     long yearSectionID[];
-    long contactID[];
     int index=1;
 
     public Login() {
@@ -33,6 +33,8 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // this method display the JFrame to center position of a screen
         setVisible(true);
+        passwordRegField.setEchoChar((char)0);
+        passwordRegField.setForeground(new Color(153,153,153));
         
         yearSectionID = new long[100];
         try{
@@ -51,8 +53,8 @@ public class Login extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         
-    }
-    
+    } 
+        
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -82,7 +84,6 @@ public class Login extends javax.swing.JFrame {
         studentRegTextField = new javax.swing.JTextField();
         birthDateLabel = new javax.swing.JLabel();
         passwordRegLabel = new javax.swing.JLabel();
-        passwordRegTextField = new javax.swing.JTextField();
         registerButton = new javax.swing.JButton();
         clearRegButton = new javax.swing.JButton();
         contactLabel = new javax.swing.JLabel();
@@ -93,6 +94,7 @@ public class Login extends javax.swing.JFrame {
         programComboBox1 = new javax.swing.JComboBox<>();
         contactTextField = new javax.swing.JTextField();
         birthDateChooser = new com.toedter.calendar.JDateChooser();
+        passwordRegField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -123,6 +125,11 @@ public class Login extends javax.swing.JFrame {
         });
 
         loginButton.setText("Login");
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);
@@ -276,7 +283,7 @@ public class Login extends javax.swing.JFrame {
         studentRegLabel.setBounds(32, 171, 88, 22);
 
         studentRegTextField.setForeground(new java.awt.Color(153, 153, 153));
-        studentRegTextField.setText("****-*****-****PQ-*");
+        studentRegTextField.setText("****-*****-PQ-*");
         studentRegTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 studentRegTextFieldFocusGained(evt);
@@ -305,29 +312,6 @@ public class Login extends javax.swing.JFrame {
         passwordRegLabel.setText("Password");
         registerPanel.add(passwordRegLabel);
         passwordRegLabel.setBounds(33, 350, 53, 16);
-
-        passwordRegTextField.setForeground(new java.awt.Color(153, 153, 153));
-        passwordRegTextField.setText("must contain at least 8 characters");
-        passwordRegTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                passwordRegTextFieldFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                passwordRegTextFieldFocusLost(evt);
-            }
-        });
-        passwordRegTextField.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                passwordRegTextFieldMouseClicked(evt);
-            }
-        });
-        passwordRegTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordRegTextFieldActionPerformed(evt);
-            }
-        });
-        registerPanel.add(passwordRegTextField);
-        passwordRegTextField.setBounds(92, 344, 254, 28);
 
         registerButton.setText("Register");
         registerButton.addActionListener(new java.awt.event.ActionListener() {
@@ -381,7 +365,7 @@ public class Login extends javax.swing.JFrame {
         registerPanel.add(sexLabel1);
         sexLabel1.setBounds(32, 292, 46, 16);
 
-        programComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year" }));
+        programComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year-Section" }));
         programComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 programComboBox2ActionPerformed(evt);
@@ -404,6 +388,23 @@ public class Login extends javax.swing.JFrame {
         contactTextField.setBounds(90, 230, 254, 30);
         registerPanel.add(birthDateChooser);
         birthDateChooser.setBounds(90, 200, 250, 22);
+
+        passwordRegField.setText("must contain at least 8 characters");
+        passwordRegField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passwordRegFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passwordRegFieldFocusLost(evt);
+            }
+        });
+        passwordRegField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordRegFieldActionPerformed(evt);
+            }
+        });
+        registerPanel.add(passwordRegField);
+        passwordRegField.setBounds(90, 342, 260, 30);
 
         jTabbedPane1.addTab("Registration", registerPanel);
 
@@ -501,7 +502,7 @@ public class Login extends javax.swing.JFrame {
 
     private void studentRegTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_studentRegTextFieldFocusGained
         // placeholder
-        if (studentRegTextField.getText().equals("****-*****-****PQ-*")){
+        if (studentRegTextField.getText().equals("****-*****-PQ-*")){
             studentRegTextField.setText("");
             studentRegTextField.setForeground(new Color(0,0,0));
         }
@@ -510,7 +511,7 @@ public class Login extends javax.swing.JFrame {
     private void studentRegTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_studentRegTextFieldFocusLost
         // placeholder
         if (studentRegTextField.getText().equals("")){
-            studentRegTextField.setText("****-*****-****PQ-*");
+            studentRegTextField.setText("****-*****-PQ-*");
             studentRegTextField.setForeground(new Color(153,153,153));
         }
     }//GEN-LAST:event_studentRegTextFieldFocusLost
@@ -534,15 +535,25 @@ public class Login extends javax.swing.JFrame {
         String contactNumber = contactTextField.getText();
         String address = addressTextField.getText();
         String programCourse = programComboBox1.getSelectedItem().toString();
-        String password = passwordRegTextField.getText();
-        //String contact = email + contactNumber + address;
-        
-        
-        
+        String password = passwordRegField.getText();
         
         try {
             Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
                
+            String ContactSQL = "INSERT INTO contact(email, contactNumber, address) VALUES (?,?,?)";
+            PreparedStatement contactStatement = connection.prepareStatement(ContactSQL, Statement.RETURN_GENERATED_KEYS);
+            contactStatement.setString(1, email);
+            contactStatement.setString(2, contactNumber);
+            contactStatement.setString(3, address);
+            
+            int contactRowsInserted = contactStatement.executeUpdate();
+            long contactID = 0;
+            if (contactRowsInserted > 0) {
+                ResultSet generatedKeys = contactStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    contactID = generatedKeys.getLong(1);
+                }
+            }
             
             String sql = "INSERT INTO student (firstName, lastName, sex, studentNumber, birthDate, program, password, yearSectionID, contactID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
@@ -555,11 +566,31 @@ public class Login extends javax.swing.JFrame {
             statement.setString(6, programCourse);
             statement.setString(7, password);
             statement.setLong(8, yearSectionID[programComboBox2.getSelectedIndex()]);
+            statement.setLong(9, contactID);
             
-
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("A new user was inserted successfully!");
+                JOptionPane.showMessageDialog(rootPane, "Success! Your account has been created");
+                // Clears the Registration form
+                Color placeholderColor = new Color(153, 153, 153);
+
+                JTextField[] registrationTextFields = {
+                    firstNameTextField, lastNameTextField, emailTextField, studentRegTextField, passwordRegField,contactTextField,addressTextField
+                };
+
+                String[] defaultTexts = {
+                    "First Name", "Last Name", "example@example.com", "****-*****-PQ-*", "must contain at least 8 characters","",""
+                };
+
+                for (int i = 0; i < registrationTextFields.length; i++) {
+                    registrationTextFields[i].setText(defaultTexts[i]);
+                    registrationTextFields[i].setForeground(placeholderColor);
+                }
+                passwordRegField.setEchoChar((char)0);
+                sexButtonGroup.clearSelection();
+                birthDateChooser.setCalendar(null);
+                programComboBox1.setSelectedIndex(0);
+                programComboBox2.setSelectedIndex(0);
             }
 
             connection.close();
@@ -568,47 +599,23 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_registerButtonActionPerformed
 
-    private void passwordRegTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordRegTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordRegTextFieldActionPerformed
-
-    private void passwordRegTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordRegTextFieldMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordRegTextFieldMouseClicked
-
-    private void passwordRegTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordRegTextFieldFocusLost
-        // placeholder
-        if (passwordRegTextField.getText().equals("")){
-            passwordRegTextField.setText("must contain at least 8 characters");
-            passwordRegTextField.setForeground(new Color(153,153,153));
-        }
-    }//GEN-LAST:event_passwordRegTextFieldFocusLost
-
-    private void passwordRegTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordRegTextFieldFocusGained
-        // placeholder
-        if (passwordRegTextField.getText().equals("must contain at least 8 characters")){
-            passwordRegTextField.setText("");
-            passwordRegTextField.setForeground(new Color(0,0,0));
-        }
-    }//GEN-LAST:event_passwordRegTextFieldFocusGained
-
     private void clearRegButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearRegButtonActionPerformed
         // Clears the Registration form
         Color placeholderColor = new Color(153, 153, 153);
 
         JTextField[] registrationTextFields = {
-            firstNameTextField, lastNameTextField, emailTextField, studentRegTextField, passwordRegTextField,contactTextField,addressTextField
+            firstNameTextField, lastNameTextField, emailTextField, studentRegTextField, passwordRegField,contactTextField,addressTextField
         };
 
         String[] defaultTexts = {
-            "First Name", "Last Name", "example@example.com", "****-*****-****PQ-*", "must contain at least 8 characters","",""
+            "First Name", "Last Name", "example@example.com", "****-*****-PQ-*", "must contain at least 8 characters","",""
         };
 
         for (int i = 0; i < registrationTextFields.length; i++) {
             registrationTextFields[i].setText(defaultTexts[i]);
             registrationTextFields[i].setForeground(placeholderColor);
         }
-
+        passwordRegField.setEchoChar((char)0);
         sexButtonGroup.clearSelection();
         birthDateChooser.setCalendar(null);
         programComboBox1.setSelectedIndex(0);
@@ -644,6 +651,55 @@ public class Login extends javax.swing.JFrame {
     private void programComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_programComboBox2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_programComboBox2ActionPerformed
+
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        String studentNumber = studentLogTextField.getText();
+        String password = passwordLogTextField.getText();
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+               
+            String loginSQL = "SELECT  studentNumber, password FROM student WHERE studentNumber=? and password=?";
+            PreparedStatement statement = connection.prepareCall(loginSQL);
+            statement.setString(1, studentNumber);
+            statement.setString(2, password);
+            
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()){
+                JOptionPane.showMessageDialog(rootPane, "Login");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Login Failed");
+            }
+                   
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }    
+           
+        
+    }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void passwordRegFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordRegFieldFocusGained
+        // placeholder
+        if (passwordRegField.getText().equals("must contain at least 8 characters")){
+            passwordRegField.setText("");
+            passwordRegField.setForeground(new Color(0,0,0));
+            passwordRegField.setEchoChar('\u2022');
+        }
+    }//GEN-LAST:event_passwordRegFieldFocusGained
+
+    private void passwordRegFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordRegFieldFocusLost
+        // placeholder
+        
+        if (passwordRegField.getText().equals("")){
+            passwordRegField.setEchoChar((char)0);
+            passwordRegField.setText("must contain at least 8 characters");
+            passwordRegField.setForeground(new Color(153,153,153));
+        }
+    }//GEN-LAST:event_passwordRegFieldFocusLost
+
+    private void passwordRegFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordRegFieldActionPerformed
+        
+    }//GEN-LAST:event_passwordRegFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -703,8 +759,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel passwordLogLabel;
     private javax.swing.JPasswordField passwordLogTextField;
+    private javax.swing.JPasswordField passwordRegField;
     private javax.swing.JLabel passwordRegLabel;
-    private javax.swing.JTextField passwordRegTextField;
     private javax.swing.JComboBox<String> programComboBox1;
     private javax.swing.JComboBox<String> programComboBox2;
     private javax.swing.JButton registerButton;

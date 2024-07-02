@@ -19,14 +19,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author hazel
  */
 public class dashboardFrame extends javax.swing.JFrame {
-
     private static final String DB_URL = "jdbc:mysql://localhost:3306/studentreservation";
     private static final String USER = "root";
     private static final String PASS = "";
@@ -61,13 +62,15 @@ public class dashboardFrame extends javax.swing.JFrame {
             birthDateLabel.setText(user.getbirthDate());
             contactNumberLabel.setText(user.getcontactNumber());
             
-            
-            
-            
         }catch(Exception ex){
             ex.printStackTrace();
         }
+        EquipmentReservation equip = new EquipmentReservation();
+        DefaultTableModel model = equip.getReservationHistory(user.getId());
+        resHistoryTable.setModel(model);
+        
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,8 +110,8 @@ public class dashboardFrame extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        resHistoryTable = new javax.swing.JTable();
         apptPanel = new javax.swing.JPanel();
         equipPanel = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -355,7 +358,7 @@ public class dashboardFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Appointment History", jScrollPane3);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        resHistoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -366,9 +369,20 @@ public class dashboardFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane4.setViewportView(jTable3);
+        resHistoryTable.setEnabled(false);
+        jScrollPane5.setViewportView(resHistoryTable);
+        if (resHistoryTable.getColumnModel().getColumnCount() > 0) {
+            resHistoryTable.getColumnModel().getColumn(0).setResizable(false);
+            resHistoryTable.getColumnModel().getColumn(0).setPreferredWidth(100);
+            resHistoryTable.getColumnModel().getColumn(1).setResizable(false);
+            resHistoryTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+            resHistoryTable.getColumnModel().getColumn(2).setResizable(false);
+            resHistoryTable.getColumnModel().getColumn(2).setPreferredWidth(150);
+            resHistoryTable.getColumnModel().getColumn(3).setResizable(false);
+            resHistoryTable.getColumnModel().getColumn(3).setPreferredWidth(250);
+        }
 
-        jTabbedPane1.addTab("Reservation History", jScrollPane4);
+        jTabbedPane1.addTab("Reservation History", jScrollPane5);
 
         javax.swing.GroupLayout userPanelLayout = new javax.swing.GroupLayout(userPanel);
         userPanel.setLayout(userPanelLayout);
@@ -423,7 +437,7 @@ public class dashboardFrame extends javax.swing.JFrame {
                     .addComponent(studentNumberLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(birthDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
-                .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(contactNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(studentNumberLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
@@ -808,6 +822,9 @@ public class dashboardFrame extends javax.swing.JFrame {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        EquipmentReservation equip = new EquipmentReservation();
+        DefaultTableModel model = equip.getReservationHistory(user.getId());
+        resHistoryTable.setModel(model);
     }//GEN-LAST:event_equipSubmitButtonActionPerformed
 
     /**
@@ -819,6 +836,8 @@ public class dashboardFrame extends javax.swing.JFrame {
     /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
      * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
      */
+        
+    
     try {
         for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
             if ("Nimbus".equals(info.getName())) {
@@ -883,17 +902,17 @@ public class dashboardFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JButton logoutButton;
     private javax.swing.JTextField minTextField;
     private javax.swing.JPanel parentPanel;
     private javax.swing.JComboBox<String> professorComboBox;
     private javax.swing.JLabel programLabel;
     private javax.swing.JTextArea purposeTextArea;
+    private javax.swing.JTable resHistoryTable;
     private javax.swing.JLabel studentNumberLabel;
     private javax.swing.JLabel studentNumberLabel1;
     private javax.swing.JLabel studentNumberLabel2;

@@ -4,6 +4,8 @@
  */
 package reservationsystem;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +14,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
@@ -27,10 +31,11 @@ public class dashboardFrame extends javax.swing.JFrame {
     private static final String USER = "root";
     private static final String PASS = "";
     private String studentNumber;
+    private User user;
     long professorID[];
-    int index=1;
-    public dashboardFrame(String studentNumber) {
-        this.studentNumber = studentNumber;
+    int index=0;
+    public dashboardFrame(User user) {
+        this.user = user;
         initComponents();
         setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -47,6 +52,17 @@ public class dashboardFrame extends javax.swing.JFrame {
                 professorComboBox.addItem(rst.getString(2));
             }
             rst.close();
+            
+            fnameLabel.setText("Hello! " + user.getName() + " " + user.getlastName());
+            yearSectionLabel.setText("Year - Section : " + user.getYearSection());
+            studentNumberLabel.setText(user.getStudentNumber());
+            emailLabel.setText(user.getemail());
+            programLabel.setText(user.getprogram());
+            birthDateLabel.setText(user.getbirthDate());
+            contactNumberLabel.setText(user.getcontactNumber());
+            
+            
+            
             
         }catch(Exception ex){
             ex.printStackTrace();
@@ -65,7 +81,6 @@ public class dashboardFrame extends javax.swing.JFrame {
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
         jSpinner1 = new javax.swing.JSpinner();
-        equipButtonGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         userButton = new javax.swing.JButton();
@@ -76,16 +91,34 @@ public class dashboardFrame extends javax.swing.JFrame {
         titleBar = new javax.swing.JLabel();
         parentPanel = new javax.swing.JPanel();
         userPanel = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        yearSectionLabel = new javax.swing.JLabel();
+        fnameLabel = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
+        studentNumberLabel = new javax.swing.JLabel();
+        programLabel = new javax.swing.JLabel();
+        birthDateLabel = new javax.swing.JLabel();
+        contactNumberLabel = new javax.swing.JLabel();
+        studentNumberLabel1 = new javax.swing.JLabel();
+        studentNumberLabel2 = new javax.swing.JLabel();
+        studentNumberLabel3 = new javax.swing.JLabel();
+        studentNumberLabel4 = new javax.swing.JLabel();
+        studentNumberLabel5 = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
         apptPanel = new javax.swing.JPanel();
         equipPanel = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
+        equipCheckBox1 = new javax.swing.JCheckBox();
+        equipCheckBox3 = new javax.swing.JCheckBox();
+        equipCheckBox4 = new javax.swing.JCheckBox();
+        equipCheckBox2 = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         professorComboBox = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
@@ -102,7 +135,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         hourTextField = new javax.swing.JTextField();
         minTextField = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        ampmComboBox = new javax.swing.JComboBox<>();
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
@@ -228,15 +261,174 @@ public class dashboardFrame extends javax.swing.JFrame {
 
         parentPanel.setLayout(new java.awt.CardLayout());
 
+        userPanel.setBackground(new java.awt.Color(153, 153, 255));
+
+        jPanel6.setBackground(new java.awt.Color(0, 0, 51));
+        jPanel6.setForeground(new java.awt.Color(255, 255, 255));
+
+        yearSectionLabel.setFont(new java.awt.Font("Microsoft JhengHei", 1, 14)); // NOI18N
+        yearSectionLabel.setForeground(new java.awt.Color(255, 255, 255));
+        yearSectionLabel.setText("placeholder year-section");
+
+        fnameLabel.setFont(new java.awt.Font("Microsoft JhengHei", 1, 14)); // NOI18N
+        fnameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        fnameLabel.setText("placeholder username");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(fnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(71, 71, 71)
+                .addComponent(yearSectionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(yearSectionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+
+        emailLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        emailLabel.setForeground(new java.awt.Color(0, 0, 0));
+        emailLabel.setText("placeholder email");
+
+        studentNumberLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        studentNumberLabel.setForeground(new java.awt.Color(0, 0, 0));
+        studentNumberLabel.setText("placeholder student Number");
+
+        programLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        programLabel.setForeground(new java.awt.Color(0, 0, 0));
+        programLabel.setText("placeholder program");
+
+        birthDateLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        birthDateLabel.setForeground(new java.awt.Color(0, 0, 0));
+        birthDateLabel.setText("placeholder birthdate");
+
+        contactNumberLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        contactNumberLabel.setForeground(new java.awt.Color(0, 0, 0));
+        contactNumberLabel.setText("placeholder contact number");
+
+        studentNumberLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        studentNumberLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        studentNumberLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        studentNumberLabel1.setText("Student Number :");
+
+        studentNumberLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        studentNumberLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        studentNumberLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        studentNumberLabel2.setText("Email :");
+
+        studentNumberLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        studentNumberLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        studentNumberLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        studentNumberLabel3.setText("Course :");
+
+        studentNumberLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        studentNumberLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        studentNumberLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        studentNumberLabel4.setText("Birth date :");
+
+        studentNumberLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        studentNumberLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        studentNumberLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        studentNumberLabel5.setText("Contact Number :");
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable2);
+
+        jTabbedPane1.addTab("Appointment History", jScrollPane3);
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(jTable3);
+
+        jTabbedPane1.addTab("Reservation History", jScrollPane4);
+
         javax.swing.GroupLayout userPanelLayout = new javax.swing.GroupLayout(userPanel);
         userPanel.setLayout(userPanelLayout);
         userPanelLayout.setHorizontalGroup(
             userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 608, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTabbedPane1)
+                    .addGroup(userPanelLayout.createSequentialGroup()
+                        .addGap(0, 40, Short.MAX_VALUE)
+                        .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(userPanelLayout.createSequentialGroup()
+                                    .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(studentNumberLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(studentNumberLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(studentNumberLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(32, 32, 32))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, userPanelLayout.createSequentialGroup()
+                                    .addComponent(studentNumberLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(userPanelLayout.createSequentialGroup()
+                                .addComponent(studentNumberLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)))
+                        .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(emailLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(studentNumberLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(programLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(birthDateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(contactNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         userPanelLayout.setVerticalGroup(
             userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 520, Short.MAX_VALUE)
+            .addGroup(userPanelLayout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(studentNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(studentNumberLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(studentNumberLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(studentNumberLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(programLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(studentNumberLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(birthDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(contactNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(studentNumberLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         parentPanel.add(userPanel, "card2");
@@ -270,7 +462,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -281,26 +473,23 @@ public class dashboardFrame extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Pick an item to make a reservation");
 
-        equipButtonGroup.add(jCheckBox1);
-        jCheckBox1.setForeground(new java.awt.Color(0, 0, 0));
-        jCheckBox1.setText("Projector");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        equipCheckBox1.setForeground(new java.awt.Color(0, 0, 0));
+        equipCheckBox1.setText("Projector");
+        equipCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                equipCheckBox1ActionPerformed(evt);
             }
         });
 
-        equipButtonGroup.add(jCheckBox2);
-        jCheckBox2.setForeground(new java.awt.Color(0, 0, 0));
-        jCheckBox2.setText("Speaker");
+        equipCheckBox3.setForeground(new java.awt.Color(0, 0, 0));
+        equipCheckBox3.setText("Speaker");
+        equipCheckBox3.setToolTipText("");
 
-        equipButtonGroup.add(jCheckBox3);
-        jCheckBox3.setForeground(new java.awt.Color(0, 0, 0));
-        jCheckBox3.setText("Microphone");
+        equipCheckBox4.setForeground(new java.awt.Color(0, 0, 0));
+        equipCheckBox4.setText("Microphone");
 
-        equipButtonGroup.add(jCheckBox4);
-        jCheckBox4.setForeground(new java.awt.Color(0, 0, 0));
-        jCheckBox4.setText("Projection Screen");
+        equipCheckBox2.setForeground(new java.awt.Color(0, 0, 0));
+        equipCheckBox2.setText("Projection Screen");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -355,7 +544,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText(":");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
+        ampmComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -378,7 +567,7 @@ public class dashboardFrame extends javax.swing.JFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jCheckBox4))
+                                .addComponent(equipCheckBox2))
                             .addComponent(professorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -391,7 +580,7 @@ public class dashboardFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(minTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(ampmComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(8, 8, 8))
             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -400,18 +589,18 @@ public class dashboardFrame extends javax.swing.JFrame {
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(equipCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(equipCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(63, 63, 63)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(equipCheckBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(250, 250, 250)
@@ -431,10 +620,10 @@ public class dashboardFrame extends javax.swing.JFrame {
                     .addComponent(jLabel9))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox4)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox3))
+                    .addComponent(equipCheckBox1)
+                    .addComponent(equipCheckBox2)
+                    .addComponent(equipCheckBox3)
+                    .addComponent(equipCheckBox4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -448,7 +637,7 @@ public class dashboardFrame extends javax.swing.JFrame {
                         .addComponent(jLabel11)
                         .addComponent(hourTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(minTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ampmComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(1, 1, 1)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -493,7 +682,7 @@ public class dashboardFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(parentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -514,7 +703,15 @@ public class dashboardFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
-        // TODO add your handling code here:
+        int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Confirm Logout", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.YES_OPTION) {
+            // Close current frame
+            this.dispose();
+
+            // Open login frame
+            Login loginFrame = new Login();
+            loginFrame.setVisible(true);
+        }
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void equipButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equipButtonActionPerformed
@@ -538,34 +735,75 @@ public class dashboardFrame extends javax.swing.JFrame {
         parentPanel.revalidate();
     }//GEN-LAST:event_userButtonActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void equipCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equipCheckBox1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_equipCheckBox1ActionPerformed
 
     private void professorComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_professorComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_professorComboBoxActionPerformed
-
-    private void equipSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equipSubmitButtonActionPerformed
-        SimpleDateFormat Date_Format = new SimpleDateFormat("yyyy-MM-dd");
-        String date = Date_Format.format(dateChooser.getDate());
-        String purpose = purposeTextArea.getText();
         
+    private void equipSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equipSubmitButtonActionPerformed
+        String hours = hourTextField.getText();
+        String minutes = minTextField.getText();
+        String amPm = ampmComboBox.getSelectedItem().toString();
+
+        int hour = Integer.parseInt(hours);
+        int minute = Integer.parseInt(minutes);
+
+        if (amPm.equals("PM") && hour != 12) {
+            hour += 12;
+        } else if (amPm.equals("AM") && hour == 12) {
+            hour = 0;
+        }
+        String time = String.format("%02d:%02d:00", hour, minute);
+
+        // Placeholder for student ID and professor ID array
+        int studentID = 1; // Replace with actual student ID retrieval logic
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = dateFormat.format(dateChooser.getDate());
+        String purpose = purposeTextArea.getText();
+
+        List<Integer> equipmentIDs = new ArrayList<>();
+        if (equipCheckBox1.isSelected()) equipmentIDs.add(1); 
+        if (equipCheckBox2.isSelected()) equipmentIDs.add(2); 
+        if (equipCheckBox3.isSelected()) equipmentIDs.add(3); 
+        if (equipCheckBox4.isSelected()) equipmentIDs.add(4); 
         try {
             Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
-            String sql = "INSERT INTO equipmentreservation (studentID, professorID, dateTimeID, equipmentID, purpose) VALUES (?, ?, ?, ?, ?)";
+            String dateTimeSQL = "INSERT INTO dateandtime(date,time) VALUES (?,?)";
+            PreparedStatement dateTimeStatement = connection.prepareStatement(dateTimeSQL, Statement.RETURN_GENERATED_KEYS);
+            dateTimeStatement.setString(1, date);
+            dateTimeStatement.setString(2, time);
             
-            PreparedStatement statement = connection.prepareStatement(sql);
-            //statement.setString(1,studentID );
-            statement.setLong(2, professorID[professorComboBox.getSelectedIndex()]);
-            //statement.setString(3,dateTimeID );
-            //statement.setString(4,equipmentID );
-            statement.setString(5, purpose);
-            
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                
+            int dateTimeRowsInserted = dateTimeStatement.executeUpdate();
+            long dateTimeID = 0;
+            if (dateTimeRowsInserted > 0) {
+                ResultSet generatedKeys = dateTimeStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    dateTimeID = generatedKeys.getLong(1);
+                }
             }
+            
+            String sql = "INSERT INTO equipmentreservation (studentID, professorID, dateTimeID, equipmentID, purpose) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            for (int equipmentID : equipmentIDs) {
+                statement.setInt(1, studentID);
+                statement.setLong(2, professorID[professorComboBox.getSelectedIndex()]);
+                statement.setLong(3, dateTimeID);
+                statement.setInt(4, equipmentID);
+                statement.setString(5, purpose);
+
+                statement.executeUpdate();
+            }
+
+            JOptionPane.showMessageDialog(this, "Equipment reserved successfully!");
+
+            // Close the statement and connection
+            dateTimeStatement.close();
+            statement.close();
             connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -577,52 +815,55 @@ public class dashboardFrame extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+     */
+    try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(dashboardFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(dashboardFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(dashboardFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(dashboardFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+    } catch (ClassNotFoundException ex) {
+        java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    }
+    //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new dashboardFrame("defaultUser").setVisible(true);
-            }
-        });
+    /* Create and display the form */
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            new Login().setVisible(true);
+        }
+    });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> ampmComboBox;
     private javax.swing.JButton apptButton;
     private javax.swing.JPanel apptPanel;
+    private javax.swing.JLabel birthDateLabel;
+    private javax.swing.JLabel contactNumberLabel;
     private com.toedter.calendar.JDateChooser dateChooser;
+    private javax.swing.JLabel emailLabel;
     private javax.swing.JButton equipButton;
-    private javax.swing.ButtonGroup equipButtonGroup;
+    private javax.swing.JCheckBox equipCheckBox1;
+    private javax.swing.JCheckBox equipCheckBox2;
+    private javax.swing.JCheckBox equipCheckBox3;
+    private javax.swing.JCheckBox equipCheckBox4;
     private javax.swing.JPanel equipPanel;
     private javax.swing.JButton equipSubmitButton;
+    private javax.swing.JLabel fnameLabel;
     private javax.swing.JTextField hourTextField;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -639,15 +880,29 @@ public class dashboardFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     private javax.swing.JButton logoutButton;
     private javax.swing.JTextField minTextField;
     private javax.swing.JPanel parentPanel;
     private javax.swing.JComboBox<String> professorComboBox;
+    private javax.swing.JLabel programLabel;
     private javax.swing.JTextArea purposeTextArea;
+    private javax.swing.JLabel studentNumberLabel;
+    private javax.swing.JLabel studentNumberLabel1;
+    private javax.swing.JLabel studentNumberLabel2;
+    private javax.swing.JLabel studentNumberLabel3;
+    private javax.swing.JLabel studentNumberLabel4;
+    private javax.swing.JLabel studentNumberLabel5;
     private javax.swing.JLabel titleBar;
     private javax.swing.JButton userButton;
     private javax.swing.JPanel userPanel;
+    private javax.swing.JLabel yearSectionLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -660,14 +660,32 @@ public class Login extends javax.swing.JFrame {
         try {
             Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
                
-            String loginSQL = "SELECT  studentNumber, password FROM student WHERE studentNumber=? and password=?";
+        String loginSQL = "SELECT student.studentID, student.firstName, student.lastName, student.studentNumber,student.program,student.birthDate, student.password, yearsection.yearSection,contact.contactNumber, contact.email "
+                        + "FROM student "
+                        + "INNER JOIN yearsection ON student.yearSectionID = yearsection.yearSectionID "
+                        + "INNER JOIN contact ON student.contactID = contact.contactID "
+                        + "WHERE student.studentNumber = ? AND student.password = ?";
+
             PreparedStatement statement = connection.prepareCall(loginSQL);
             statement.setString(1, studentNumber);
             statement.setString(2, password);
             
             ResultSet rs = statement.executeQuery();
             if (rs.next()){
-                dashboardFrame db = new dashboardFrame(studentNumber);
+                User user = new User(
+                rs.getInt("studentID"),
+                rs.getString("studentNumber"),
+                rs.getString("password"),
+                rs.getString("firstName"),
+                rs.getString("lastName"),
+                rs.getString("email"),        
+                rs.getString("yearSection"),
+                rs.getString("program"),
+                rs.getString("birthDate"),
+                rs.getString("contactNumber")        
+                );
+                
+                dashboardFrame db = new dashboardFrame(user);
                 db.setVisible(true);
                 dispose();
             } else {

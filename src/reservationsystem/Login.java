@@ -62,14 +62,21 @@ public class Login extends javax.swing.JFrame {
         sexButtonGroup = new javax.swing.ButtonGroup();
         jButton1 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        homepagePanel = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         loginPanel = new javax.swing.JPanel();
-        loginLabel = new javax.swing.JLabel();
         studentLogTextField = new javax.swing.JTextField();
         studentLogLabel = new javax.swing.JLabel();
         passwordLogLabel = new javax.swing.JLabel();
         passwordLogTextField = new javax.swing.JPasswordField();
         clearLogButton = new javax.swing.JButton();
         loginButton = new javax.swing.JButton();
+        loginLabel = new javax.swing.JLabel();
+        jToggleButton3 = new javax.swing.JToggleButton();
+        jToggleButton4 = new javax.swing.JToggleButton();
         registerPanel = new javax.swing.JPanel();
         registrationLabel1 = new javax.swing.JLabel();
         nameLabel = new javax.swing.JLabel();
@@ -95,19 +102,87 @@ public class Login extends javax.swing.JFrame {
         contactTextField = new javax.swing.JTextField();
         passwordRegField = new javax.swing.JPasswordField();
         birthDateChooser = new com.toedter.calendar.JDateChooser();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jToggleButton2 = new javax.swing.JToggleButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTabbedPane1.setBackground(new java.awt.Color(0, 0, 0,80));
         jTabbedPane1.setToolTipText("");
         jTabbedPane1.setAutoscrolls(true);
         jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTabbedPane1.setName(""); // NOI18N
 
-        loginLabel.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
-        loginLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        loginLabel.setText("Login");
+        homepagePanel.setBackground(new java.awt.Color(200, 200, 200,150));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservationsystem/logo (3).png"))); // NOI18N
+
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Hi, PUPian!");
+
+        jButton2.setBackground(new java.awt.Color(0, 102, 204));
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Login");
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setBackground(new java.awt.Color(204, 0, 0));
+        jButton3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Register");
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout homepagePanelLayout = new javax.swing.GroupLayout(homepagePanel);
+        homepagePanel.setLayout(homepagePanelLayout);
+        homepagePanelLayout.setHorizontalGroup(
+            homepagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homepagePanelLayout.createSequentialGroup()
+                .addContainerGap(43, Short.MAX_VALUE)
+                .addGroup(homepagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(homepagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homepagePanelLayout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(136, 136, 136))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homepagePanelLayout.createSequentialGroup()
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(39, 39, 39)))))
+        );
+        homepagePanelLayout.setVerticalGroup(
+            homepagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homepagePanelLayout.createSequentialGroup()
+                .addGap(77, 77, 77)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(245, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("tab3", homepagePanel);
+
+        loginPanel.setBackground(new java.awt.Color(200, 200, 200,150));
 
         studentLogTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,8 +190,10 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        studentLogLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         studentLogLabel.setText("Student Number");
 
+        passwordLogLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         passwordLogLabel.setText("Password");
 
         clearLogButton.setText("Clear");
@@ -133,35 +210,59 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        loginLabel.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
+        loginLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        loginLabel.setText("Login");
+
+        jToggleButton3.setText("Login");
+        jToggleButton3.setEnabled(false);
+
+        jToggleButton4.setText("Register");
+        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);
         loginPanelLayout.setHorizontalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
+            .addGroup(loginPanelLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(passwordLogLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(studentLogLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(loginPanelLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(loginPanelLayout.createSequentialGroup()
-                                .addGap(11, 11, 11)
+                        .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(studentLogTextField)
+                            .addComponent(passwordLogTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
                                 .addComponent(clearLogButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10))
-                            .addComponent(passwordLogTextField)
-                            .addComponent(studentLogTextField))))
-                .addGap(60, 60, 60))
-            .addComponent(loginLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(11, 11, 11))))
+                    .addComponent(passwordLogLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(studentLogLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
+            .addGroup(loginPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(loginLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         loginPanelLayout.setVerticalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginPanelLayout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(54, 54, 54)
                 .addComponent(loginLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(studentLogLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(studentLogTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -170,14 +271,15 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(passwordLogTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(clearLogButton)
-                    .addComponent(loginButton))
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(loginButton)
+                    .addComponent(clearLogButton))
+                .addContainerGap(250, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Login", loginPanel);
 
+        registerPanel.setBackground(new java.awt.Color(200, 200, 200,150));
         registerPanel.setForeground(new java.awt.Color(153, 153, 153));
         registerPanel.setLayout(null);
 
@@ -185,11 +287,12 @@ public class Login extends javax.swing.JFrame {
         registrationLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         registrationLabel1.setText("Registration");
         registerPanel.add(registrationLabel1);
-        registrationLabel1.setBounds(0, 42, 400, 32);
+        registrationLabel1.setBounds(0, 40, 350, 32);
 
+        nameLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         nameLabel.setText("Name");
         registerPanel.add(nameLabel);
-        nameLabel.setBounds(32, 80, 37, 30);
+        nameLabel.setBounds(20, 80, 37, 30);
 
         firstNameTextField.setForeground(new java.awt.Color(153, 153, 153));
         firstNameTextField.setText("First Name");
@@ -209,7 +312,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         registerPanel.add(firstNameTextField);
-        firstNameTextField.setBounds(81, 80, 120, 30);
+        firstNameTextField.setBounds(70, 80, 120, 30);
 
         lastNameTextField.setForeground(new java.awt.Color(153, 153, 153));
         lastNameTextField.setText("Last Name");
@@ -227,11 +330,12 @@ public class Login extends javax.swing.JFrame {
             }
         });
         registerPanel.add(lastNameTextField);
-        lastNameTextField.setBounds(202, 80, 140, 30);
+        lastNameTextField.setBounds(190, 80, 150, 30);
 
+        emailLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         emailLabel.setText("Email");
         registerPanel.add(emailLabel);
-        emailLabel.setBounds(32, 119, 37, 16);
+        emailLabel.setBounds(20, 120, 37, 16);
 
         emailTextField.setForeground(new java.awt.Color(153, 153, 153));
         emailTextField.setText("example@example.com");
@@ -254,11 +358,12 @@ public class Login extends javax.swing.JFrame {
             }
         });
         registerPanel.add(emailTextField);
-        emailTextField.setBounds(80, 110, 261, 30);
+        emailTextField.setBounds(70, 110, 270, 30);
 
+        sexLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         sexLabel.setText("Sex");
         registerPanel.add(sexLabel);
-        sexLabel.setBounds(32, 146, 30, 16);
+        sexLabel.setBounds(20, 150, 30, 16);
 
         sexButtonGroup.add(jRadioButton1);
         jRadioButton1.setText("Male");
@@ -268,7 +373,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         registerPanel.add(jRadioButton1);
-        jRadioButton1.setBounds(81, 144, 62, 21);
+        jRadioButton1.setBounds(70, 140, 62, 21);
 
         sexButtonGroup.add(jRadioButton2);
         jRadioButton2.setText("Female");
@@ -278,11 +383,12 @@ public class Login extends javax.swing.JFrame {
             }
         });
         registerPanel.add(jRadioButton2);
-        jRadioButton2.setBounds(149, 144, 61, 21);
+        jRadioButton2.setBounds(160, 140, 61, 21);
 
+        studentRegLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         studentRegLabel.setText("Student Number");
         registerPanel.add(studentRegLabel);
-        studentRegLabel.setBounds(32, 171, 88, 22);
+        studentRegLabel.setBounds(20, 170, 100, 22);
 
         studentRegTextField.setForeground(new java.awt.Color(153, 153, 153));
         studentRegTextField.setText("****-*****-PQ-*");
@@ -305,15 +411,17 @@ public class Login extends javax.swing.JFrame {
             }
         });
         registerPanel.add(studentRegTextField);
-        studentRegTextField.setBounds(132, 171, 210, 22);
+        studentRegTextField.setBounds(120, 170, 220, 22);
 
+        birthDateLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         birthDateLabel.setText("Birth date");
         registerPanel.add(birthDateLabel);
-        birthDateLabel.setBounds(32, 202, 65, 16);
+        birthDateLabel.setBounds(20, 200, 65, 16);
 
+        passwordRegLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         passwordRegLabel.setText("Password");
         registerPanel.add(passwordRegLabel);
-        passwordRegLabel.setBounds(33, 350, 53, 16);
+        passwordRegLabel.setBounds(20, 350, 60, 16);
 
         registerButton.setText("Register");
         registerButton.addActionListener(new java.awt.event.ActionListener() {
@@ -322,7 +430,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         registerPanel.add(registerButton);
-        registerButton.setBounds(221, 384, 106, 23);
+        registerButton.setBounds(210, 380, 106, 23);
 
         clearRegButton.setText("Clear");
         clearRegButton.addActionListener(new java.awt.event.ActionListener() {
@@ -331,15 +439,17 @@ public class Login extends javax.swing.JFrame {
             }
         });
         registerPanel.add(clearRegButton);
-        clearRegButton.setBounds(65, 384, 106, 23);
+        clearRegButton.setBounds(50, 380, 106, 23);
 
+        contactLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         contactLabel.setText("Contact #");
         registerPanel.add(contactLabel);
-        contactLabel.setBounds(32, 233, 51, 22);
+        contactLabel.setBounds(20, 230, 60, 22);
 
+        addressLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         addressLabel1.setText("Address");
         registerPanel.add(addressLabel1);
-        addressLabel1.setBounds(32, 261, 50, 22);
+        addressLabel1.setBounds(20, 260, 50, 22);
 
         addressTextField.setForeground(new java.awt.Color(0, 0, 0));
         addressTextField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -361,11 +471,12 @@ public class Login extends javax.swing.JFrame {
             }
         });
         registerPanel.add(addressTextField);
-        addressTextField.setBounds(90, 260, 254, 30);
+        addressTextField.setBounds(80, 260, 260, 30);
 
+        sexLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         sexLabel1.setText("Program");
         registerPanel.add(sexLabel1);
-        sexLabel1.setBounds(32, 292, 46, 16);
+        sexLabel1.setBounds(20, 290, 50, 16);
 
         programComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year-Section" }));
         programComboBox2.addActionListener(new java.awt.event.ActionListener() {
@@ -374,11 +485,11 @@ public class Login extends javax.swing.JFrame {
             }
         });
         registerPanel.add(programComboBox2);
-        programComboBox2.setBounds(90, 316, 120, 22);
+        programComboBox2.setBounds(80, 320, 120, 22);
 
         programComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Course", "Bachelor of Science in Computer Engineering", "Bachelor of Science in Hospitality Management", "Bachelor of Science in Information Technology", "Bachelor of Science in Office Administration" }));
         registerPanel.add(programComboBox1);
-        programComboBox1.setBounds(90, 289, 255, 22);
+        programComboBox1.setBounds(80, 290, 260, 22);
 
         contactTextField.setForeground(new java.awt.Color(0, 0, 0));
         contactTextField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -387,7 +498,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         registerPanel.add(contactTextField);
-        contactTextField.setBounds(90, 230, 254, 30);
+        contactTextField.setBounds(80, 230, 260, 30);
 
         passwordRegField.setText("must contain at least 8 characters");
         passwordRegField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -404,22 +515,44 @@ public class Login extends javax.swing.JFrame {
             }
         });
         registerPanel.add(passwordRegField);
-        passwordRegField.setBounds(90, 342, 260, 30);
+        passwordRegField.setBounds(80, 340, 260, 30);
         registerPanel.add(birthDateChooser);
-        birthDateChooser.setBounds(90, 200, 250, 22);
+        birthDateChooser.setBounds(80, 200, 260, 22);
+
+        jToggleButton1.setText("Login");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+        registerPanel.add(jToggleButton1);
+        jToggleButton1.setBounds(190, 0, 80, 30);
+
+        jToggleButton2.setText("Register");
+        jToggleButton2.setEnabled(false);
+        registerPanel.add(jToggleButton2);
+        jToggleButton2.setBounds(270, 0, 80, 30);
 
         jTabbedPane1.addTab("Registration", registerPanel);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, -35, 350, 560));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservationsystem/PUPPQ3 (1).png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 530));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -538,6 +671,30 @@ public class Login extends javax.swing.JFrame {
         String address = addressTextField.getText();
         String programCourse = programComboBox1.getSelectedItem().toString();
         String password = passwordRegField.getText();
+        
+        // Validate the inputs
+        if (firstName.equals("First Name") || firstName.isEmpty() || lastName.equals("Last Name") || lastName.isEmpty() || email.equals("example@example.com") || email.isEmpty() ||
+                studentNumber.equals("****-*****-PQ-0") || studentNumber.isEmpty() || birthDate.isEmpty() || contactNumber.isEmpty() ||
+                address.isEmpty() || programCourse.isEmpty() || password.equals("must contain at least 8 characters") || password.isEmpty())  {
+            JOptionPane.showMessageDialog(rootPane, "All fields are required!");
+            return;
+        }
+        if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            JOptionPane.showMessageDialog(rootPane, "Invalid email format!");
+            return;
+        }
+        if (!studentNumber.matches("\\d{4}-\\d{5}-PQ-\\d")) {
+            JOptionPane.showMessageDialog(rootPane, "Invalid Student Number '****-*****-PQ-0'!");
+            return;
+        }
+        if (!contactNumber.matches("09\\d{9}")) {
+            JOptionPane.showMessageDialog(rootPane, "Invalid Contact Number");
+            return;
+        }
+        if (password.length() < 8) {
+            JOptionPane.showMessageDialog(rootPane, "Password must contain at least 8 characters!");
+            return;
+        }
         
         try {
             Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -723,6 +880,26 @@ public class Login extends javax.swing.JFrame {
         
     }//GEN-LAST:event_passwordRegFieldActionPerformed
 
+    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
+        // TODO add your handling code here:
+        jTabbedPane1.setSelectedIndex(2);
+    }//GEN-LAST:event_jToggleButton4ActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+        jTabbedPane1.setSelectedIndex(1);
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        jTabbedPane1.setSelectedIndex(1);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        jTabbedPane1.setSelectedIndex(2);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -770,10 +947,21 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel emailLabel;
     private javax.swing.JTextField emailTextField;
     private javax.swing.JTextField firstNameTextField;
+    private javax.swing.JPanel homepagePanel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JToggleButton jToggleButton3;
+    private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JTextField lastNameTextField;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel loginLabel;

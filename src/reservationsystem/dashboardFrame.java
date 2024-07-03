@@ -88,11 +88,14 @@ public class dashboardFrame extends javax.swing.JFrame {
         //Appointment
             fnameLabel1.setText("Name: " + user.getName() + " " + user.getlastName());
             studNumApptLabel.setText("Student Number: " + user.getStudentNumber());
-        
+        //Table History
             EquipmentReservation equip = new EquipmentReservation();
             DefaultTableModel model = equip.getReservationHistory(user.getId());
             resHistoryTable.setModel(model);
-        
+            
+            Appointment appoint = new Appointment();
+            DefaultTableModel model2 = appoint.getAppointmentHistory(user.getId());
+            apptResHistory.setModel(model2);
     }
     
 
@@ -133,7 +136,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         studentNumberLabel5 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        apptResHistory = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
         resHistoryTable = new javax.swing.JTable();
         apptPanel = new javax.swing.JPanel();
@@ -186,6 +189,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         jCheckBoxMenuItem2.setText("jCheckBoxMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -382,7 +386,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         studentNumberLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         studentNumberLabel5.setText("Contact Number :");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        apptResHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -393,7 +397,7 @@ public class dashboardFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(apptResHistory);
 
         jTabbedPane1.addTab("Appointment History", jScrollPane3);
 
@@ -1123,6 +1127,7 @@ public class dashboardFrame extends javax.swing.JFrame {
     private javax.swing.JButton apptButton;
     private com.toedter.calendar.JDateChooser apptDateChooser;
     private javax.swing.JPanel apptPanel;
+    private javax.swing.JTable apptResHistory;
     private javax.swing.JButton apptSubmitButton;
     private javax.swing.JLabel birthDateLabel;
     private javax.swing.JTextArea concernTextArea;
@@ -1171,7 +1176,6 @@ public class dashboardFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JButton logoutButton;
     private javax.swing.JTextField minTextField;
     private javax.swing.JComboBox<String> officeComboBox;

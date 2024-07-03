@@ -26,10 +26,6 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author hazel
- */
 public class dashboardFrame extends javax.swing.JFrame {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/studentreservation";
     private static final String USER = "root";

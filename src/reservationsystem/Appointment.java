@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,9 +19,8 @@ public class Appointment {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/studentreservation";
     private static final String USER = "root";
     private static final String PASS = "";
-    public DefaultTableModel getAppointmentHistory(int studentID) {
-        String[] columnNames = {"Date", "Time", "Office","Concern"};
-        DefaultTableModel model2 = new DefaultTableModel(null, columnNames);
+    public DefaultTableModel getAppointmentHistory(int studentID, JTable table) {
+        DefaultTableModel model2 = (DefaultTableModel)table.getModel();
 
         String reservationSQL = "SELECT ap.studentID, dt.date, dt.Time, o.room, ap.concern " +
                      "FROM studentappointment ap " +

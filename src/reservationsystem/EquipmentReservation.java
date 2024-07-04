@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,9 +19,8 @@ public class EquipmentReservation {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/studentreservation";
     private static final String USER = "root";
     private static final String PASS = "";
-    public DefaultTableModel getReservationHistory(int studentID) {
-        String[] columnNames = {"Date", "Time", "Equipment","Purpose"};
-        DefaultTableModel model = new DefaultTableModel(null, columnNames);
+    public void getReservationHistory(int studentID, JTable table) {
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
 
         String reservationSQL = "SELECT er.studentID, dt.date, dt.Time, e.equipment, er.purpose " +
                      "FROM equipmentreservation er " +
@@ -44,8 +44,6 @@ public class EquipmentReservation {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        return model;
     }
     
 }

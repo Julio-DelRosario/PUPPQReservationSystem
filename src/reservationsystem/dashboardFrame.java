@@ -30,6 +30,8 @@ public class dashboardFrame extends javax.swing.JFrame {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/studentreservation";
     private static final String USER = "root";
     private static final String PASS = "";
+    EquipmentReservation equip = new EquipmentReservation();
+    Appointment appoint = new Appointment();
     private String studentNumber;
     private User user;
     long professorID[];
@@ -85,13 +87,8 @@ public class dashboardFrame extends javax.swing.JFrame {
             fnameLabel1.setText("Name: " + user.getName() + " " + user.getlastName());
             studNumApptLabel.setText("Student Number: " + user.getStudentNumber());
         //Table History
-            EquipmentReservation equip = new EquipmentReservation();
-            DefaultTableModel model = equip.getReservationHistory(user.getId());
-            resHistoryTable.setModel(model);
-            
-            Appointment appoint = new Appointment();
-            DefaultTableModel model2 = appoint.getAppointmentHistory(user.getId());
-            apptResHistory.setModel(model2);
+            equip.getReservationHistory(user.getId(),resHistoryTable);
+            appoint.getAppointmentHistory(user.getId(),apptResHistory);
     }
     
 
@@ -379,28 +376,25 @@ public class dashboardFrame extends javax.swing.JFrame {
 
         apptResHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Date", "Time", "Office", "Concern"
             }
-        ));
+        ){
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        });
+        apptResHistory.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(apptResHistory);
 
         jTabbedPane1.addTab("Appointment History", jScrollPane3);
 
         resHistoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Date", "Time", "Equipment", "Purpose"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -408,11 +402,11 @@ public class dashboardFrame extends javax.swing.JFrame {
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return false;
             }
         });
+        resHistoryTable.setColumnSelectionAllowed(true);
         resHistoryTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        resHistoryTable.setEnabled(false);
         resHistoryTable.getTableHeader().setReorderingAllowed(false);
         resHistoryTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -420,16 +414,7 @@ public class dashboardFrame extends javax.swing.JFrame {
             }
         });
         jScrollPane5.setViewportView(resHistoryTable);
-        if (resHistoryTable.getColumnModel().getColumnCount() > 0) {
-            resHistoryTable.getColumnModel().getColumn(0).setResizable(false);
-            resHistoryTable.getColumnModel().getColumn(0).setPreferredWidth(100);
-            resHistoryTable.getColumnModel().getColumn(1).setResizable(false);
-            resHistoryTable.getColumnModel().getColumn(1).setPreferredWidth(100);
-            resHistoryTable.getColumnModel().getColumn(2).setResizable(false);
-            resHistoryTable.getColumnModel().getColumn(2).setPreferredWidth(150);
-            resHistoryTable.getColumnModel().getColumn(3).setResizable(false);
-            resHistoryTable.getColumnModel().getColumn(3).setPreferredWidth(250);
-        }
+        resHistoryTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jTabbedPane1.addTab("Reservation History", jScrollPane5);
 
@@ -946,9 +931,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        EquipmentReservation equip = new EquipmentReservation();
-        DefaultTableModel model = equip.getReservationHistory(user.getId());
-        resHistoryTable.setModel(model);
+        equip.getReservationHistory(user.getId(),resHistoryTable);
     }//GEN-LAST:event_equipSubmitButtonActionPerformed
 
     private void resHistoryTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resHistoryTableMouseClicked
@@ -1024,10 +1007,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        Appointment appoint = new Appointment();
-        DefaultTableModel model2 = appoint.getAppointmentHistory(user.getId());
-        apptResHistory.setModel(model2);
-        
+        appoint.getAppointmentHistory(user.getId(),apptResHistory);
     }//GEN-LAST:event_apptSubmitButtonActionPerformed
 
     /**

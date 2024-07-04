@@ -29,7 +29,7 @@ public class Login extends javax.swing.JFrame {
     int index=1;
 
     public Login() {
-        initComponents();
+        initComponents(); 
         setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // this method display the JFrame to center position of a screen
         setVisible(true);

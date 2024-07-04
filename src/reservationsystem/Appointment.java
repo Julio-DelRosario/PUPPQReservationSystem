@@ -4,12 +4,17 @@
  */
 package reservationsystem;
 
+import java.sql.*;
+import java.util.logging.*;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
 
 /**
  *
@@ -22,7 +27,7 @@ public class Appointment {
     public DefaultTableModel getAppointmentHistory(int studentID, JTable table) {
         DefaultTableModel model2 = (DefaultTableModel)table.getModel();
 
-        String reservationSQL = "SELECT ap.studentID, dt.date, dt.Time, o.room, ap.concern " +
+        String reservationSQL = "SELECT ap.studentID, dt.date, dt.timeIN,dt.dateTimeID, o.room, ap.concern " +
                      "FROM studentappointment ap " +
                      "JOIN dateandtime dt ON ap.datetimeID = dt.dateTimeID " +
                      "JOIN office o ON ap.officeID = o.officeID "
@@ -35,17 +40,31 @@ public class Appointment {
 
                 while (rs.next()) {
                     String date = rs.getString("date");
-                    String time = rs.getString("time");
+                    String time = rs.getString("timeIN");
                     String room = rs.getString("room");
-                    String purpose = rs.getString("concern");
+                    String id = rs.getString("dateTimeID");
 
-                    model2.addRow(new Object[]{date, time, room,purpose});
+                    model2.addRow(new Object[]{date, time, room,id});
                 }
         } catch (Exception e) {
             e.printStackTrace();
         }
         
         return model2;
+    }
+    public boolean removeAppointment (int dateTimeID){
+        String deleteQuery = "DELETE FROM dateandtime WHERE dateTimeID=?";
+        
+        try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+                statement.setInt(1, dateTimeID);
+
+                return (statement.executeUpdate() > 0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
     
 }

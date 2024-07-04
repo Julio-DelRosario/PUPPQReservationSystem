@@ -22,7 +22,7 @@ public class EquipmentReservation {
     public void getReservationHistory(int studentID, JTable table) {
         DefaultTableModel model = (DefaultTableModel)table.getModel();
 
-        String reservationSQL = "SELECT er.studentID, dt.date, dt.Time, e.equipment, er.purpose " +
+        String reservationSQL = "SELECT er.studentID, dt.date, dt.timeIN, dt.timeOUT, e.equipment, er.purpose " +
                      "FROM equipmentreservation er " +
                      "JOIN dateandtime dt ON er.datetimeID = dt.dateTimeID " +
                      "JOIN equipment e ON er.equipmentID = e.equipmentID "

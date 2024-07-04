@@ -22,7 +22,7 @@ public class EquipmentReservation {
     public void getReservationHistory(int studentID, JTable table) {
         DefaultTableModel model = (DefaultTableModel)table.getModel();
 
-        String reservationSQL = "SELECT er.studentID, dt.date, dt.timeIN, dt.timeOUT,dt.dateTimeID, e.equipment, er.purpose " +
+        String reservationSQL = "SELECT er.studentID, dt.date, dt.timeIN, dt.timeOUT,dt.dateTimeID, e.equipment,er.reservationID " +
                      "FROM equipmentreservation er " +
                      "JOIN dateandtime dt ON er.datetimeID = dt.dateTimeID " +
                      "JOIN equipment e ON er.equipmentID = e.equipmentID "
@@ -34,26 +34,26 @@ public class EquipmentReservation {
                 ResultSet rs = reservationpst.executeQuery();
 
                 while (rs.next()) {
-                    String id = rs.getString("dateTimeID");
+                    String id = rs.getString("reservationID");
                     String date = rs.getString("date");
-                    String time = rs.getString("timeIN");
+                    String timeIN = rs.getString("timeIN");
+                    String timeOUT = rs.getString("timeOUT");
                     String equipment = rs.getString("equipment");
-                    String purpose = rs.getString("purpose");
 
-                    model.addRow(new Object[]{id,date, time, equipment,purpose});
+                    model.addRow(new Object[]{id,date, timeIN,timeOUT, equipment});
                 }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public boolean removeReservation (int dateTimeID){
-        String deleteQuery = "DELETE FROM dateandtime WHERE dateTimeID=?";
+    public boolean removeReservation (int reservationID){
+        String deleteQuery = "DELETE FROM equipmentreservation WHERE reservationID=?";
         
         try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
-                statement.setInt(1, dateTimeID);
+             PreparedStatement statement2 = connection.prepareStatement(deleteQuery)) {
+                statement2.setInt(1, reservationID);
 
-                return (statement.executeUpdate() > 0);
+                return (statement2.executeUpdate() > 0);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -27,7 +27,7 @@ public class Appointment {
     public DefaultTableModel getAppointmentHistory(int studentID, JTable table) {
         DefaultTableModel model2 = (DefaultTableModel)table.getModel();
 
-        String reservationSQL = "SELECT ap.studentID, dt.date, dt.timeIN,dt.dateTimeID, o.room, ap.concern " +
+        String reservationSQL = "SELECT ap.studentID, dt.date, dt.timeIN,dt.dateTimeID, o.room " +
                      "FROM studentappointment ap " +
                      "JOIN dateandtime dt ON ap.datetimeID = dt.dateTimeID " +
                      "JOIN office o ON ap.officeID = o.officeID "
@@ -43,10 +43,9 @@ public class Appointment {
                     String date = rs.getString("date");
                     String time = rs.getString("timeIN");
                     String room = rs.getString("room");
-                    String concern = rs.getString("concern");
                     
 
-                    model2.addRow(new Object[]{id, date, time, room,concern});
+                    model2.addRow(new Object[]{id, date, time, room});
                 }
         } catch (Exception e) {
             e.printStackTrace();

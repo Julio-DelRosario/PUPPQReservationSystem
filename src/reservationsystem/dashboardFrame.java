@@ -348,7 +348,7 @@ public class dashboardFrame extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(studentNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(328, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,6 +363,9 @@ public class dashboardFrame extends javax.swing.JFrame {
         jPanel9.setBackground(new java.awt.Color(153, 153, 255));
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        cancelButton.setBackground(new java.awt.Color(255, 0, 0));
+        cancelButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cancelButton.setForeground(new java.awt.Color(255, 255, 255));
         cancelButton.setText("Cancel Reservation");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -393,6 +396,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         yearSectionLabel.setText("placeholder year-section");
         jPanel9.add(yearSectionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 22, 160, 34));
 
+        refreshButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         refreshButton.setText("refresh");
         refreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -405,7 +409,7 @@ public class dashboardFrame extends javax.swing.JFrame {
             new Object [][] {
             },
             new String [] {
-                "Id","Date", "Time", "Office","Concern"
+                "Id","Date", "Time", "Office"
             }
         ){
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -427,7 +431,7 @@ public class dashboardFrame extends javax.swing.JFrame {
             new Object [][] {
             },
             new String [] {
-                "id","Date", "Time", "Equipment", "Purpose"
+                "id","Date", "Time In","Time Out", "Equipment"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -507,14 +511,14 @@ public class dashboardFrame extends javax.swing.JFrame {
         userPanelLayout.setHorizontalGroup(
             userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         userPanelLayout.setVerticalGroup(
             userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userPanelLayout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE))
         );
 
         parentPanel.add(userPanel, "card2");
@@ -548,6 +552,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         jPanel8.setBackground(new java.awt.Color(255, 255, 153));
 
         concernTextArea.setColumns(20);
+        concernTextArea.setForeground(new java.awt.Color(153, 153, 153));
         concernTextArea.setRows(5);
         concernTextArea.setText("provide a brief description to your concern...");
         concernTextArea.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -577,7 +582,9 @@ public class dashboardFrame extends javax.swing.JFrame {
     fnameLabel3.setForeground(new java.awt.Color(0, 0, 0));
     fnameLabel3.setText("Office Appointment");
 
+    apptSubmitButton.setBackground(new java.awt.Color(0, 102, 0));
     apptSubmitButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    apptSubmitButton.setForeground(new java.awt.Color(255, 255, 255));
     apptSubmitButton.setText("Submit");
     apptSubmitButton.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -595,6 +602,9 @@ public class dashboardFrame extends javax.swing.JFrame {
     fnameLabel1.setForeground(new java.awt.Color(0, 0, 0));
     fnameLabel1.setText("placeholder username");
 
+    jButton3.setBackground(new java.awt.Color(51, 51, 0));
+    jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    jButton3.setForeground(new java.awt.Color(255, 255, 255));
     jButton3.setText("check schedule");
     jButton3.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -632,9 +642,7 @@ public class dashboardFrame extends javax.swing.JFrame {
                         .addComponent(fnameLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel8Layout.createSequentialGroup()
                             .addGap(150, 150, 150)
-                            .addComponent(officeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(10, 10, 10)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(officeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(jPanel8Layout.createSequentialGroup()
                     .addGap(20, 20, 20)
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -653,8 +661,10 @@ public class dashboardFrame extends javax.swing.JFrame {
                     .addGap(20, 20, 20)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel8Layout.createSequentialGroup()
-                    .addGap(250, 250, 250)
-                    .addComponent(apptSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(150, 150, 150)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(69, 69, 69)
+                    .addComponent(apptSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addContainerGap(12, Short.MAX_VALUE))
     );
     jPanel8Layout.setVerticalGroup(
@@ -668,8 +678,7 @@ public class dashboardFrame extends javax.swing.JFrame {
             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(fnameLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(officeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(officeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(6, 6, 6)
             .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(apptDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -680,9 +689,11 @@ public class dashboardFrame extends javax.swing.JFrame {
             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(0, 0, 0)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(10, 10, 10)
-            .addComponent(apptSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(32, Short.MAX_VALUE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(apptSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addContainerGap(30, Short.MAX_VALUE))
     );
 
     javax.swing.GroupLayout apptPanelLayout = new javax.swing.GroupLayout(apptPanel);
@@ -757,7 +768,9 @@ public class dashboardFrame extends javax.swing.JFrame {
     jLabel4.setForeground(new java.awt.Color(0, 0, 0));
     jLabel4.setText("Professor Name:");
 
+    equipSubmitButton.setBackground(new java.awt.Color(0, 102, 0));
     equipSubmitButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    equipSubmitButton.setForeground(new java.awt.Color(255, 255, 255));
     equipSubmitButton.setText("Submit");
     equipSubmitButton.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -792,8 +805,17 @@ public class dashboardFrame extends javax.swing.JFrame {
     jLabel10.setText("Purpose:");
 
     purposeTextArea.setColumns(20);
+    purposeTextArea.setForeground(new java.awt.Color(153, 153, 153));
     purposeTextArea.setRows(5);
     purposeTextArea.setText("Provide a brief description...");
+    purposeTextArea.addFocusListener(new java.awt.event.FocusAdapter() {
+        public void focusGained(java.awt.event.FocusEvent evt) {
+            purposeTextAreaFocusGained(evt);
+        }
+        public void focusLost(java.awt.event.FocusEvent evt) {
+            purposeTextAreaFocusLost(evt);
+        }
+    });
 
     jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
     jLabel11.setForeground(new java.awt.Color(0, 0, 0));
@@ -811,7 +833,9 @@ public class dashboardFrame extends javax.swing.JFrame {
     });
     jScrollPane1.setViewportView(jTable2);
 
+    checkButton.setBackground(new java.awt.Color(51, 51, 0));
     checkButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    checkButton.setForeground(new java.awt.Color(255, 255, 255));
     checkButton.setText("check availability");
     checkButton.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -871,10 +895,10 @@ public class dashboardFrame extends javax.swing.JFrame {
                     .addGap(30, 30, 30)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(140, 140, 140)
-                    .addComponent(equipSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(30, 30, 30)
-                    .addComponent(checkButton)))
+                    .addGap(149, 149, 149)
+                    .addComponent(checkButton)
+                    .addGap(42, 42, 42)
+                    .addComponent(equipSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGap(28, 28, 28))
     );
     jPanel5Layout.setVerticalGroup(
@@ -915,11 +939,11 @@ public class dashboardFrame extends javax.swing.JFrame {
                 .addComponent(jLabel10)
                 .addComponent(purposeTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(10, 10, 10)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(equipSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(checkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap(26, Short.MAX_VALUE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(checkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(equipSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addContainerGap(24, Short.MAX_VALUE))
     );
 
     javax.swing.GroupLayout equipPanelLayout = new javax.swing.GroupLayout(equipPanel);
@@ -947,7 +971,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         .addGroup(jPanel1Layout.createSequentialGroup()
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(0, 0, 0)
-            .addComponent(parentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(parentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
     );
     jPanel1Layout.setVerticalGroup(
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1031,6 +1055,9 @@ public class dashboardFrame extends javax.swing.JFrame {
         if (!equipment1 && !equipment2 && !equipment3 && !equipment4){
             JOptionPane.showMessageDialog(rootPane, "Please select an equipment");
         }
+        else{
+            JOptionPane.showMessageDialog(this, "Equipment reserved successfully!");
+        }
 
         int studentID = user.getId();
 
@@ -1049,7 +1076,7 @@ public class dashboardFrame extends javax.swing.JFrame {
             PreparedStatement dateTimeStatement = connection.prepareStatement(dateTimeSQL, Statement.RETURN_GENERATED_KEYS);
             dateTimeStatement.setString(1, date);
             dateTimeStatement.setString(2, timeIN);
-            dateTimeStatement.setString(2, timeOUT);
+            dateTimeStatement.setString(3, timeOUT);
             
             int dateTimeRowsInserted = dateTimeStatement.executeUpdate();
             long dateTimeID = 0;
@@ -1073,7 +1100,7 @@ public class dashboardFrame extends javax.swing.JFrame {
                 statement.executeUpdate();
                 
             }
-            JOptionPane.showMessageDialog(this, "Equipment reserved successfully!");
+            
             //clears the form
             professorComboBox.setSelectedIndex(0);
             equipCheckBox1.setSelected(false);
@@ -1092,7 +1119,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        resHistoryTable.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "Time", "Equipment", "Purpose"}));
+        resHistoryTable.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "Time In","Time Out", "Equipment"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
         TableColumnModel tcm = resHistoryTable.getColumnModel();
         tcm.removeColumn( tcm.getColumn(0) );
         equip.getReservationHistory(user.getId(),resHistoryTable);
@@ -1152,7 +1179,7 @@ public class dashboardFrame extends javax.swing.JFrame {
             ex.printStackTrace();
         }
             
-        apptResHistory.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "Time", "Office", "Concern"}));
+        apptResHistory.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "Time", "Office"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
         TableColumnModel tcm2 = apptResHistory.getColumnModel();
         tcm2.removeColumn( tcm2.getColumn(0) );
         appoint.getAppointmentHistory(user.getId(),apptResHistory);
@@ -1218,8 +1245,8 @@ public class dashboardFrame extends javax.swing.JFrame {
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         //resets table
-        apptResHistory.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "Time", "Office","Concern"}));
-        resHistoryTable.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "Time", "Equipment", "Purpose"}));
+        apptResHistory.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "Time", "Office"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
+        resHistoryTable.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "Time In","Time Out", "Equipment"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
         //hides the id
         TableColumnModel tcm1 = resHistoryTable.getColumnModel();
         tcm1.removeColumn( tcm1.getColumn(0) );
@@ -1242,9 +1269,10 @@ public class dashboardFrame extends javax.swing.JFrame {
         try {
             if (rowIndex1 != -1) {
                 int reservationID = Integer.valueOf(resHistoryTable.getModel().getValueAt(rowIndex1, 0).toString());
+                //int equipment = Integer.valueOf(resHistoryTable.getModel().getValueAt(rowIndex1, 4).toString());
                 if (equip.removeReservation(reservationID)) {
                     JOptionPane.showMessageDialog(rootPane, "Reservation has been cancelled!", "Cancelled Reservation", JOptionPane.INFORMATION_MESSAGE);
-                    resHistoryTable.setModel(new DefaultTableModel(null, new Object[]{"id", "Date", "Time", "Equipment", "Purpose"}));
+                    resHistoryTable.setModel(new DefaultTableModel(null, new Object[]{"id", "Date", "Time In","Time Out", "Equipment"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
                     TableColumnModel tcm = resHistoryTable.getColumnModel();
                     tcm.removeColumn(tcm.getColumn(0));
                     equip.getReservationHistory(user.getId(), resHistoryTable);
@@ -1255,7 +1283,7 @@ public class dashboardFrame extends javax.swing.JFrame {
                 int appointmentID = Integer.valueOf(apptResHistory.getModel().getValueAt(rowIndex2, 0).toString());
                 if (appoint.removeAppointment(appointmentID)) {
                     JOptionPane.showMessageDialog(rootPane, "Appointment has been cancelled!", "Cancelled Appointment", JOptionPane.INFORMATION_MESSAGE);
-                    apptResHistory.setModel(new DefaultTableModel(null, new Object[]{"id", "Date", "Time", "Office", "Concern"}));
+                    apptResHistory.setModel(new DefaultTableModel(null, new Object[]{"id", "Date", "Time", "Office"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
                     TableColumnModel tcm = apptResHistory.getColumnModel();
                     tcm.removeColumn(tcm.getColumn(0));
                     appoint.getAppointmentHistory(user.getId(), apptResHistory);
@@ -1271,6 +1299,20 @@ public class dashboardFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "An error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void purposeTextAreaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_purposeTextAreaFocusGained
+        if (purposeTextArea.getText().equals("Provide a brief description...")){
+            purposeTextArea.setText("");
+            purposeTextArea.setForeground(new Color(0,0,0));
+        }
+    }//GEN-LAST:event_purposeTextAreaFocusGained
+
+    private void purposeTextAreaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_purposeTextAreaFocusLost
+        if (purposeTextArea.getText().equals("")){
+            purposeTextArea.setText("provide a brief description...");
+            purposeTextArea.setForeground(new Color(153,153,153));
+        }
+    }//GEN-LAST:event_purposeTextAreaFocusLost
 
     /**
      * @param args the command line arguments

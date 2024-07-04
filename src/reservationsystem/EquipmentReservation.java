@@ -22,7 +22,7 @@ public class EquipmentReservation {
     public void getReservationHistory(int studentID, JTable table) {
         DefaultTableModel model = (DefaultTableModel)table.getModel();
 
-        String reservationSQL = "SELECT er.studentID, dt.date, dt.timeIN, dt.timeOUT, e.equipment, er.purpose " +
+        String reservationSQL = "SELECT er.studentID, dt.date, dt.timeIN, dt.timeOUT,dt.dateTimeID, e.equipment, er.purpose " +
                      "FROM equipmentreservation er " +
                      "JOIN dateandtime dt ON er.datetimeID = dt.dateTimeID " +
                      "JOIN equipment e ON er.equipmentID = e.equipmentID "
@@ -34,15 +34,30 @@ public class EquipmentReservation {
                 ResultSet rs = reservationpst.executeQuery();
 
                 while (rs.next()) {
+                    String id = rs.getString("dateTimeID");
                     String date = rs.getString("date");
-                    String time = rs.getString("time");
+                    String time = rs.getString("timeIN");
                     String equipment = rs.getString("equipment");
                     String purpose = rs.getString("purpose");
 
-                    model.addRow(new Object[]{date, time, equipment,purpose});
+                    model.addRow(new Object[]{id,date, time, equipment,purpose});
                 }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    public boolean removeReservation (int dateTimeID){
+        String deleteQuery = "DELETE FROM dateandtime WHERE dateTimeID=?";
+        
+        try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+                statement.setInt(1, dateTimeID);
+
+                return (statement.executeUpdate() > 0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
     

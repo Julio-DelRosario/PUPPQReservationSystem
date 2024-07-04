@@ -39,12 +39,14 @@ public class Appointment {
                 ResultSet rs = reservationpst.executeQuery();
 
                 while (rs.next()) {
+                    String id = rs.getString("dateTimeID");
                     String date = rs.getString("date");
                     String time = rs.getString("timeIN");
                     String room = rs.getString("room");
-                    String id = rs.getString("dateTimeID");
+                    String concern = rs.getString("concern");
+                    
 
-                    model2.addRow(new Object[]{date, time, room,id});
+                    model2.addRow(new Object[]{id, date, time, room,concern});
                 }
         } catch (Exception e) {
             e.printStackTrace();

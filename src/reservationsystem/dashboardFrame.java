@@ -25,6 +25,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 public class dashboardFrame extends javax.swing.JFrame {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/studentreservation";
@@ -87,6 +88,11 @@ public class dashboardFrame extends javax.swing.JFrame {
             fnameLabel1.setText("Name: " + user.getName() + " " + user.getlastName());
             studNumApptLabel.setText("Student Number: " + user.getStudentNumber());
         //Table History
+            TableColumnModel tcm1 = resHistoryTable.getColumnModel();
+            tcm1.removeColumn( tcm1.getColumn(0) );
+            TableColumnModel tcm2 = apptResHistory.getColumnModel();
+            tcm2.removeColumn( tcm2.getColumn(0) );
+        
             equip.getReservationHistory(user.getId(),resHistoryTable);
             appoint.getAppointmentHistory(user.getId(),apptResHistory);
     }
@@ -167,7 +173,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         equipCheckBox2 = new javax.swing.JCheckBox();
         professorComboBox = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        checkavailability = new javax.swing.JButton();
+        equipSubmitButton = new javax.swing.JButton();
         dateChooser = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -181,7 +187,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        equipSubmitButton = new javax.swing.JButton();
+        checkButton = new javax.swing.JButton();
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
@@ -399,7 +405,7 @@ public class dashboardFrame extends javax.swing.JFrame {
             new Object [][] {
             },
             new String [] {
-                "Date", "Time", "Office","Id"
+                "Id","Date", "Time", "Office","Concern"
             }
         ){
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -421,7 +427,7 @@ public class dashboardFrame extends javax.swing.JFrame {
             new Object [][] {
             },
             new String [] {
-                "Date", "Time", "Equipment", "Purpose"
+                "id","Date", "Time", "Equipment", "Purpose"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -751,11 +757,11 @@ public class dashboardFrame extends javax.swing.JFrame {
     jLabel4.setForeground(new java.awt.Color(0, 0, 0));
     jLabel4.setText("Professor Name:");
 
-    checkavailability.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    checkavailability.setText("check availability");
-    checkavailability.addActionListener(new java.awt.event.ActionListener() {
+    equipSubmitButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    equipSubmitButton.setText("Submit");
+    equipSubmitButton.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            checkavailabilityActionPerformed(evt);
+            equipSubmitButtonActionPerformed(evt);
         }
     });
 
@@ -805,11 +811,11 @@ public class dashboardFrame extends javax.swing.JFrame {
     });
     jScrollPane1.setViewportView(jTable2);
 
-    equipSubmitButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    equipSubmitButton.setText("Submit");
-    equipSubmitButton.addActionListener(new java.awt.event.ActionListener() {
+    checkButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    checkButton.setText("check availability");
+    checkButton.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            equipSubmitButtonActionPerformed(evt);
+            checkButtonActionPerformed(evt);
         }
     });
 
@@ -818,55 +824,58 @@ public class dashboardFrame extends javax.swing.JFrame {
     jPanel5Layout.setHorizontalGroup(
         jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanel5Layout.createSequentialGroup()
-            .addGap(19, 19, 19)
-            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGroup(jPanel5Layout.createSequentialGroup()
-            .addGap(20, 20, 20)
-            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(52, 52, 52)
-            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(68, 68, 68)
-            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(72, 72, 72)
-            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGroup(jPanel5Layout.createSequentialGroup()
-            .addGap(30, 30, 30)
-            .addComponent(equipCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(35, 35, 35)
-            .addComponent(equipCheckBox2)
-            .addGap(68, 68, 68)
-            .addComponent(equipCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(63, 63, 63)
-            .addComponent(equipCheckBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGroup(jPanel5Layout.createSequentialGroup()
-            .addGap(20, 20, 20)
-            .addComponent(jLabel4)
-            .addGap(8, 8, 8)
-            .addComponent(professorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGroup(jPanel5Layout.createSequentialGroup()
-            .addGap(60, 60, 60)
-            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(10, 10, 10)
-            .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(11, 11, 11)
-            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(10, 10, 10)
-            .addComponent(timeComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(10, 10, 10)
-            .addComponent(timeComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGroup(jPanel5Layout.createSequentialGroup()
-            .addGap(60, 60, 60)
-            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(10, 10, 10)
-            .addComponent(purposeTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGroup(jPanel5Layout.createSequentialGroup()
-            .addGap(30, 30, 30)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGroup(jPanel5Layout.createSequentialGroup()
-            .addGap(140, 140, 140)
-            .addComponent(checkavailability, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(30, 30, 30)
-            .addComponent(equipSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGap(19, 19, 19)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(52, 52, 52)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(68, 68, 68)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(72, 72, 72)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGap(30, 30, 30)
+                    .addComponent(equipCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(35, 35, 35)
+                    .addComponent(equipCheckBox2)
+                    .addGap(68, 68, 68)
+                    .addComponent(equipCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(63, 63, 63)
+                    .addComponent(equipCheckBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addComponent(jLabel4)
+                    .addGap(8, 8, 8)
+                    .addComponent(professorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGap(60, 60, 60)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(10, 10, 10)
+                    .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(11, 11, 11)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(10, 10, 10)
+                    .addComponent(timeComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(10, 10, 10)
+                    .addComponent(timeComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGap(60, 60, 60)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(10, 10, 10)
+                    .addComponent(purposeTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGap(30, 30, 30)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGap(140, 140, 140)
+                    .addComponent(equipSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(30, 30, 30)
+                    .addComponent(checkButton)))
+            .addGap(28, 28, 28))
     );
     jPanel5Layout.setVerticalGroup(
         jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -908,8 +917,8 @@ public class dashboardFrame extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(10, 10, 10)
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(checkavailability, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(equipSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(equipSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(checkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addContainerGap(26, Short.MAX_VALUE))
     );
 
@@ -1007,7 +1016,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_professorComboBoxActionPerformed
         
-    private void checkavailabilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkavailabilityActionPerformed
+    private void equipSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equipSubmitButtonActionPerformed
         int gettimeIN = timeComboBox1.getSelectedIndex();
         int gettimeOUT = timeComboBox2.getSelectedIndex();
         String[] listTimeIN = {"","7:00:00", "8:00:00", "9:00:00", "10:00:00","11:00:00", "12:00:00", "13:00:00", "14:00:00", "15:00:00", "16:00:00","17:00:00","18:00:00","19:00:00"};
@@ -1084,8 +1093,10 @@ public class dashboardFrame extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         resHistoryTable.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "Time", "Equipment", "Purpose"}));
+        TableColumnModel tcm = resHistoryTable.getColumnModel();
+        tcm.removeColumn( tcm.getColumn(0) );
         equip.getReservationHistory(user.getId(),resHistoryTable);
-    }//GEN-LAST:event_checkavailabilityActionPerformed
+    }//GEN-LAST:event_equipSubmitButtonActionPerformed
 
     private void resHistoryTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resHistoryTableMouseClicked
         // TODO add your handling code here:
@@ -1140,7 +1151,10 @@ public class dashboardFrame extends javax.swing.JFrame {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        apptResHistory.setModel(new DefaultTableModel(null,new Object[]{"Date", "Time", "Office", "Concern","id"}));
+            
+        apptResHistory.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "Time", "Office", "Concern"}));
+        TableColumnModel tcm2 = apptResHistory.getColumnModel();
+        tcm2.removeColumn( tcm2.getColumn(0) );
         appoint.getAppointmentHistory(user.getId(),apptResHistory);
     }//GEN-LAST:event_apptSubmitButtonActionPerformed
 
@@ -1198,41 +1212,63 @@ public class dashboardFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_concernTextAreaFocusLost
 
-    private void equipSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equipSubmitButtonActionPerformed
+    private void checkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_equipSubmitButtonActionPerformed
+    }//GEN-LAST:event_checkButtonActionPerformed
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        apptResHistory.setModel(new DefaultTableModel(null,new Object[]{"Date", "Time", "Office", "id"}));
-        resHistoryTable.setModel(new DefaultTableModel(null,new Object[]{"Date", "Time", "Equipment", "Purpose","id"}));
+        //resets table
+        apptResHistory.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "Time", "Office","Concern"}));
+        resHistoryTable.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "Time", "Equipment", "Purpose"}));
+        //hides the id
+        TableColumnModel tcm1 = resHistoryTable.getColumnModel();
+        tcm1.removeColumn( tcm1.getColumn(0) );
+        TableColumnModel tcm2 = apptResHistory.getColumnModel();
+        tcm2.removeColumn( tcm2.getColumn(0) );
+        //get table
         equip.getReservationHistory(user.getId(),resHistoryTable);
         appoint.getAppointmentHistory(user.getId(),apptResHistory);
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void apptResHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_apptResHistoryMouseClicked
-       DefaultTableModel model = (DefaultTableModel)apptResHistory.getModel();
-       int rowIndex = apptResHistory.getSelectedRow();
+
     }//GEN-LAST:event_apptResHistoryMouseClicked
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        DefaultTableModel model = (DefaultTableModel)apptResHistory.getModel();
         //delete a row in the table
-        try{
-            int rowIndex = apptResHistory.getSelectedRow();
-            int id = Integer.valueOf(apptResHistory.getValueAt(rowIndex,0).toString());
-            if (appoint.removeAppointment(id)){
-                JOptionPane.showMessageDialog(rootPane, "Appointment has been cancelled!","Cancelled Appointment",JOptionPane.INFORMATION_MESSAGE);
-                apptResHistory.setModel(new DefaultTableModel(null,new Object[]{"Date", "Time", "Office", "id"}));
-                resHistoryTable.setModel(new DefaultTableModel(null,new Object[]{"Date", "Time", "Equipment", "Purpose","id"}));
-                equip.getReservationHistory(user.getId(),resHistoryTable);
-                appoint.getAppointmentHistory(user.getId(),apptResHistory);
-            }
-            else{
-                JOptionPane.showMessageDialog(rootPane, "Appointment not cancelled","Error",JOptionPane.ERROR_MESSAGE);
-            }
+        int rowIndex1 = resHistoryTable.getSelectedRow();
+        int rowIndex2 = apptResHistory.getSelectedRow();
 
-        } catch (NumberFormatException ex){
-            JOptionPane.showMessageDialog(rootPane,ex.getMessage());
+        try {
+            if (rowIndex1 != -1) {
+                int reservationID = Integer.valueOf(resHistoryTable.getModel().getValueAt(rowIndex1, 0).toString());
+                if (equip.removeReservation(reservationID)) {
+                    JOptionPane.showMessageDialog(rootPane, "Reservation has been cancelled!", "Cancelled Reservation", JOptionPane.INFORMATION_MESSAGE);
+                    resHistoryTable.setModel(new DefaultTableModel(null, new Object[]{"id", "Date", "Time", "Equipment", "Purpose"}));
+                    TableColumnModel tcm = resHistoryTable.getColumnModel();
+                    tcm.removeColumn(tcm.getColumn(0));
+                    equip.getReservationHistory(user.getId(), resHistoryTable);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Reservation not cancelled", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else if (rowIndex2 != -1) {
+                int appointmentID = Integer.valueOf(apptResHistory.getModel().getValueAt(rowIndex2, 0).toString());
+                if (appoint.removeAppointment(appointmentID)) {
+                    JOptionPane.showMessageDialog(rootPane, "Appointment has been cancelled!", "Cancelled Appointment", JOptionPane.INFORMATION_MESSAGE);
+                    apptResHistory.setModel(new DefaultTableModel(null, new Object[]{"id", "Date", "Time", "Office", "Concern"}));
+                    TableColumnModel tcm = apptResHistory.getColumnModel();
+                    tcm.removeColumn(tcm.getColumn(0));
+                    appoint.getAppointmentHistory(user.getId(), apptResHistory);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Appointment not cancelled", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "No row selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Invalid ID format: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "An error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_cancelButtonActionPerformed
 
@@ -1281,7 +1317,7 @@ public class dashboardFrame extends javax.swing.JFrame {
     private javax.swing.JButton apptSubmitButton;
     private javax.swing.JLabel birthDateLabel;
     private javax.swing.JButton cancelButton;
-    private javax.swing.JButton checkavailability;
+    private javax.swing.JButton checkButton;
     private javax.swing.JTextArea concernTextArea;
     private javax.swing.JLabel contactNumberLabel;
     private com.toedter.calendar.JDateChooser dateChooser;

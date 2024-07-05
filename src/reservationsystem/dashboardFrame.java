@@ -35,6 +35,7 @@ public class dashboardFrame extends javax.swing.JFrame {
     private static final String PASS = "";
     EquipmentReservation equip = new EquipmentReservation();
     Appointment appoint = new Appointment();
+    Search search = new Search();
     private String studentNumber;
     private User user;
     long professorID[];
@@ -1247,22 +1248,15 @@ public class dashboardFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_apptSubmitButtonActionPerformed
 
     private void searchTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTextField1ActionPerformed
-        /*String search = searchTextField1.getText();
-        try{
-            Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
-            String searchSQL = "SELECT ap.studentID, dt.date, dt.timeIN, o.room, ap.concern "
-                    + "FROM studentappointment ap " +
-                     "JOIN dateandtime dt ON ap.datetimeID = dt.dateTimeID " +
-                     "JOIN office o ON ap.officeID = o.officeID "
-                + "WHERE ap.studentid = ? and o.office = ? or dt.date = ?"
-                    + "ORDER BY dt.date ASC";
-            PreparedStatement statement = connection.prepareStatement(searchSQL);
-            statement.setInt(1, studentID);
-            statement.setString(2, office);
-            statement.setString(3, date);
-        } catch (SQLException ex){
-            ex.printStackTrace();
-        }*/
+        String query = searchTextField1.getText();
+        apptResHistory.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "Time", "Office"}));
+        resHistoryTable.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "TimeIN", "TimeOUT","Office"}));
+        search.searchTable(query, apptResHistory, resHistoryTable);
+        
+        TableColumnModel tcm1 = apptResHistory.getColumnModel();
+        tcm1.removeColumn(tcm1.getColumn(0));
+        TableColumnModel tcm2 = resHistoryTable.getColumnModel();
+        tcm2.removeColumn(tcm2.getColumn(0));
         
     }//GEN-LAST:event_searchTextField1ActionPerformed
 

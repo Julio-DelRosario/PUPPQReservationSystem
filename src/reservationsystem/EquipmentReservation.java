@@ -128,6 +128,36 @@ public class EquipmentReservation {
         speakerTable.setModel(model3);
         micTable.setModel(model4);
     }
+    public boolean isReservationAvailable(String date,int equipmentID, String timeIn, String timeOut) {
+        String query = "SELECT COUNT(*) FROM dateandtime dt " +
+                   "JOIN equipmentreservation er ON dt.dateTimeID = er.dateTimeID " +
+                   "WHERE dt.date = ? AND er.equipmentID = ? AND " +
+                   "((dt.timeIN < ? AND dt.timeOUT > ?) OR " +
+                   "(dt.timeIN < ? AND dt.timeOUT > ?) OR " +
+                   "(dt.timeIN >= ? AND dt.timeOUT <= ?))";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, date);
+            pstmt.setInt(2, equipmentID);
+            pstmt.setString(3, timeOut);
+            pstmt.setString(4, timeIn);
+            pstmt.setString(5, timeOut);
+            pstmt.setString(6, timeIn);
+            pstmt.setString(7, timeIn);
+            pstmt.setString(8, timeOut);
+
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count == 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public boolean removeReservation (int reservationID){
         String deleteQuery = "DELETE FROM equipmentreservation WHERE reservationID=?";
         

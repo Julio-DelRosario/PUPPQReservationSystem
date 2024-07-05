@@ -1021,42 +1021,15 @@ public class dashboardFrame extends javax.swing.JFrame {
     private void equipSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equipSubmitButtonActionPerformed
         int gettimeIN = timeComboBox1.getSelectedIndex();
         int gettimeOUT = timeComboBox2.getSelectedIndex();
-        String[] listTimeIN = {"","7:00:00", "8:00:00", "9:00:00", "10:00:00","11:00:00", "12:00:00", "13:00:00", "14:00:00", "15:00:00", "16:00:00","17:00:00","18:00:00","19:00:00"};
-        String[] lsitTimeOUT = {"", "8:00:00", "9:00:00", "10:00:00","11:00:00", "12:00:00", "13:00:00", "14:00:00", "15:00:00", "16:00:00","17:00:00","18:00:00","19:00:00","20:00:00","21:00:00"};
+        String[] listTimeIN = {"", "7:00:00", "8:00:00", "9:00:00", "10:00:00", "11:00:00", "12:00:00", "13:00:00", "14:00:00", "15:00:00", "16:00:00", "17:00:00", "18:00:00", "19:00:00"};
+        String[] listTimeOUT = {"", "8:00:00", "9:00:00", "10:00:00", "11:00:00", "12:00:00", "13:00:00", "14:00:00", "15:00:00", "16:00:00", "17:00:00", "18:00:00", "19:00:00", "20:00:00", "21:00:00"};
         String timeIN = listTimeIN[gettimeIN];
-        String timeOUT = lsitTimeOUT[gettimeOUT];
+        String timeOUT = listTimeOUT[gettimeOUT];
         boolean equipment1 = equipCheckBox1.isSelected();
         boolean equipment2 = equipCheckBox2.isSelected();
         boolean equipment3 = equipCheckBox3.isSelected();
         boolean equipment4 = equipCheckBox4.isSelected();
         String purpose = purposeTextArea.getText();
-
-        if (!equipment1 && !equipment2 && !equipment3 && !equipment4){
-            JOptionPane.showMessageDialog(rootPane, "Please select an equipment");
-            return;
-        }
-        else if (dateChooser.getDate() == null){
-            JOptionPane.showMessageDialog(rootPane, "Please select a date for your reservation");
-            return;
-        }
-        else if(gettimeIN == 0 || gettimeOUT == 0){
-            JOptionPane.showMessageDialog(rootPane, "Please select a time for your reservation");
-            return;
-        }
-        else if(purpose.equals("Provide a brief description...") || purpose.isEmpty()){
-            JOptionPane.showMessageDialog(rootPane, "Provide a short description to your reservation");
-            return;
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "Equipment reserved successfully!");
-            
-            resHistoryTable.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "Time In","Time Out", "Equipment"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
-            
-            projectorTable.setModel(new DefaultTableModel(null,new Object[]{"Date","Time In","Time Out"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
-            screenTable.setModel(new DefaultTableModel(null,new Object[]{"Date","Time In","Time Out"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
-            speakerTable.setModel(new DefaultTableModel(null,new Object[]{"Date","Time In","Time Out"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
-            micTable.setModel(new DefaultTableModel(null,new Object[]{"Date","Time In","Time Out"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
-        }
 
         int studentID = user.getId();
 
@@ -1064,18 +1037,50 @@ public class dashboardFrame extends javax.swing.JFrame {
         String date = dateFormat.format(dateChooser.getDate());
 
         List<Integer> equipmentIDs = new ArrayList<>();
-        if (equipCheckBox1.isSelected()) equipmentIDs.add(1); 
-        if (equipCheckBox2.isSelected()) equipmentIDs.add(2); 
-        if (equipCheckBox3.isSelected()) equipmentIDs.add(3); 
-        if (equipCheckBox4.isSelected()) equipmentIDs.add(4); 
+        if (equipCheckBox1.isSelected()) equipmentIDs.add(1);
+        if (equipCheckBox2.isSelected()) equipmentIDs.add(2);
+        if (equipCheckBox3.isSelected()) equipmentIDs.add(3);
+        if (equipCheckBox4.isSelected()) equipmentIDs.add(4);
+
+        // Validate input
+        if (!equipment1 && !equipment2 && !equipment3 && !equipment4) {
+            JOptionPane.showMessageDialog(rootPane, "Please select an equipment");
+            return;
+        }
+        if (dateChooser.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Please select a date for your reservation");
+            return;
+        }
+        if (gettimeIN == 0 || gettimeOUT == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Please select a time for your reservation");
+            return;
+        }
+        if (purpose.equals("Provide a brief description...") || purpose.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Provide a short description to your reservation");
+            return;
+        }
+        if (gettimeIN >= gettimeOUT) {
+            JOptionPane.showMessageDialog(rootPane, "Time In should be less than Time Out");
+            return;
+        }
+
+        // Check availability for each equipment
+        for (int equipmentID : equipmentIDs) {
+            if (!equip.isReservationAvailable(date, equipmentID, timeIN, timeOUT)) {
+                JOptionPane.showMessageDialog(this, "Sorry, your reservation overlaps with an existing reservation. Please check the schedule.");
+                return;
+            }
+        }
+
+        // Proceed with reservation if all equipment are available
         try {
             Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
-            String dateTimeSQL = "INSERT INTO dateandtime(date,timeIN,timeOUT) VALUES (?,?,?)";
+            String dateTimeSQL = "INSERT INTO dateandtime(date, timeIN, timeOUT) VALUES (?, ?, ?)";
             PreparedStatement dateTimeStatement = connection.prepareStatement(dateTimeSQL, Statement.RETURN_GENERATED_KEYS);
             dateTimeStatement.setString(1, date);
             dateTimeStatement.setString(2, timeIN);
             dateTimeStatement.setString(3, timeOUT);
-            
+
             int dateTimeRowsInserted = dateTimeStatement.executeUpdate();
             long dateTimeID = 0;
             if (dateTimeRowsInserted > 0) {
@@ -1084,7 +1089,7 @@ public class dashboardFrame extends javax.swing.JFrame {
                     dateTimeID = generatedKeys.getLong(1);
                 }
             }
-            
+
             String sql = "INSERT INTO equipmentreservation (studentID, professorID, dateTimeID, equipmentID, purpose) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -1096,10 +1101,9 @@ public class dashboardFrame extends javax.swing.JFrame {
                 statement.setString(5, purpose);
 
                 statement.executeUpdate();
-                
             }
-            
-            //clears the form
+
+            // Clear the form
             professorComboBox.setSelectedIndex(0);
             equipCheckBox1.setSelected(false);
             equipCheckBox2.setSelected(false);
@@ -1109,20 +1113,48 @@ public class dashboardFrame extends javax.swing.JFrame {
             timeComboBox1.setSelectedIndex(0);
             timeComboBox2.setSelectedIndex(0);
             purposeTextArea.setText("");
-           
+
             // Close the statement and connection
             dateTimeStatement.close();
             statement.close();
             connection.close();
+
+            JOptionPane.showMessageDialog(this, "Equipment reserved successfully!");
+
+            resHistoryTable.setModel(new DefaultTableModel(null, new Object[]{"id", "Date", "Time In", "Time Out", "Equipment"}) {
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return false;
+                }
+            });
+
+            projectorTable.setModel(new DefaultTableModel(null, new Object[]{"Date", "Time In", "Time Out"}) {
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return false;
+                }
+            });
+            screenTable.setModel(new DefaultTableModel(null, new Object[]{"Date", "Time In", "Time Out"}) {
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return false;
+                }
+            });
+            speakerTable.setModel(new DefaultTableModel(null, new Object[]{"Date", "Time In", "Time Out"}) {
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return false;
+                }
+            });
+            micTable.setModel(new DefaultTableModel(null, new Object[]{"Date", "Time In", "Time Out"}) {
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return false;
+                }
+            });
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+
         TableColumnModel tcm = resHistoryTable.getColumnModel();
-        tcm.removeColumn( tcm.getColumn(0) );
-        equip.getReservationHistory(user.getId(),resHistoryTable);
-        equip.getAllReservation(projectorTable,screenTable,speakerTable,micTable);
-        
-        
+        tcm.removeColumn(tcm.getColumn(0));
+        equip.getReservationHistory(user.getId(), resHistoryTable);
+        equip.getAllReservation(projectorTable, screenTable, speakerTable, micTable);
     }//GEN-LAST:event_equipSubmitButtonActionPerformed
 
     private void resHistoryTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resHistoryTableMouseClicked

@@ -98,6 +98,7 @@ public class dashboardFrame extends javax.swing.JFrame {
             equip.getReservationHistory(user.getId(),resHistoryTable);
             equip.getAllReservation(projectorTable,screenTable,speakerTable,micTable);
             appoint.getAppointmentHistory(user.getId(),apptResHistory);
+            appoint.getAllAppointment(appointmentTable);
             
     }
     
@@ -154,7 +155,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         concernTextArea = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        appointmentTable = new javax.swing.JTable();
         officeComboBox = new javax.swing.JComboBox<>();
         timeComboBox = new javax.swing.JComboBox<>();
         fnameLabel3 = new javax.swing.JLabel();
@@ -162,7 +163,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         apptDateChooser = new com.toedter.calendar.JDateChooser();
         studNumApptLabel = new javax.swing.JLabel();
         fnameLabel1 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        checkSchedButton = new javax.swing.JButton();
         fnameLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         fnameLabel4 = new javax.swing.JLabel();
@@ -577,15 +578,19 @@ public class dashboardFrame extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(concernTextArea);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        appointmentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Date", "Time", "Office"
             }
-        )
+        ){
+            public boolean isCellEditable (int rowIndex, int columnIndex){return false;}
+        }
     );
-    jScrollPane4.setViewportView(jTable1);
+    appointmentTable.setEnabled(false);
+    jScrollPane4.setViewportView(appointmentTable);
 
     timeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10:00 AM", "11:00 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM" }));
 
@@ -614,13 +619,13 @@ public class dashboardFrame extends javax.swing.JFrame {
     fnameLabel1.setForeground(new java.awt.Color(0, 0, 0));
     fnameLabel1.setText("placeholder username");
 
-    jButton3.setBackground(new java.awt.Color(51, 51, 0));
-    jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    jButton3.setForeground(new java.awt.Color(255, 255, 255));
-    jButton3.setText("check schedule");
-    jButton3.addActionListener(new java.awt.event.ActionListener() {
+    checkSchedButton.setBackground(new java.awt.Color(51, 51, 0));
+    checkSchedButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    checkSchedButton.setForeground(new java.awt.Color(255, 255, 255));
+    checkSchedButton.setText("check schedule");
+    checkSchedButton.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton3ActionPerformed(evt);
+            checkSchedButtonActionPerformed(evt);
         }
     });
 
@@ -668,13 +673,13 @@ public class dashboardFrame extends javax.swing.JFrame {
                     .addComponent(timeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel8Layout.createSequentialGroup()
                     .addGap(20, 20, 20)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel8Layout.createSequentialGroup()
-                    .addGap(20, 20, 20)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel8Layout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel8Layout.createSequentialGroup()
                     .addGap(150, 150, 150)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkSchedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(69, 69, 69)
                     .addComponent(apptSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addContainerGap(12, Short.MAX_VALUE))
@@ -698,13 +703,13 @@ public class dashboardFrame extends javax.swing.JFrame {
                 .addComponent(fnameLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(timeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(5, 5, 5)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(0, 0, 0)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(apptSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(12, 12, 12)
+            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(checkSchedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(apptSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addContainerGap(30, Short.MAX_VALUE))
     );
 
@@ -719,8 +724,8 @@ public class dashboardFrame extends javax.swing.JFrame {
         apptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(apptPanelLayout.createSequentialGroup()
             .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(0, 0, Short.MAX_VALUE)
-            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(1, 1, 1)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     parentPanel.add(apptPanel, "card3");
@@ -1164,20 +1169,37 @@ public class dashboardFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_resHistoryTableMouseClicked
 
     private void apptSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apptSubmitButtonActionPerformed
-        int getTimeIN=timeComboBox.getSelectedIndex();
-        String[] listTime = {"10:00:00","11:00:00","13:00:00","14:00:00","15:00:00","16:00:00"};
+        int getTimeIN = timeComboBox.getSelectedIndex();
+        String[] listTime = {"10:00:00", "11:00:00", "13:00:00", "14:00:00", "15:00:00", "16:00:00"};
         String timeIN = listTime[getTimeIN];
         int studentID = user.getId();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = dateFormat.format(apptDateChooser.getDate());
         String concern = concernTextArea.getText();
+        long office = officeID[officeComboBox.getSelectedIndex()]; 
+
+        if (apptDateChooser.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Please select a date for your appointment");
+            return;
+        }
+        if (concern.equals("provide a brief description to your concern...") || concern.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Provide a short description to your appointment");
+            return;
+        }
+
+        // Check if the appointment time is available
+        if (!appoint.isAppointmentAvailable(date, timeIN,office)) {
+            JOptionPane.showMessageDialog(this, "Sorry, your appointment time overlaps with an existing appointment. Please check the schedule.");
+            return;
+        }
+
         try {
             Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
-            String apptdatetimeSQL = "INSERT INTO dateandtime(date,timeIN) VALUES (?,?)";
+            String apptdatetimeSQL = "INSERT INTO dateandtime(date, timeIN) VALUES (?, ?)";
             PreparedStatement dateTimeStatement = connection.prepareStatement(apptdatetimeSQL, Statement.RETURN_GENERATED_KEYS);
             dateTimeStatement.setString(1, date);
             dateTimeStatement.setString(2, timeIN);
-            
+
             int dateTimeRowsInserted = dateTimeStatement.executeUpdate();
             long dateTimeID = 0;
             if (dateTimeRowsInserted > 0) {
@@ -1186,35 +1208,42 @@ public class dashboardFrame extends javax.swing.JFrame {
                     dateTimeID = generatedKeys.getLong(1);
                 }
             }
-            
+
             String sql = "INSERT INTO studentappointment (studentID, officeID, dateTimeID, concern) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
 
-                statement.setInt(1, studentID);
-                statement.setLong(2, officeID[officeComboBox.getSelectedIndex()]);
-                statement.setLong(3, dateTimeID);
-                statement.setString(4, concern);
+            statement.setInt(1, studentID);
+            statement.setLong(2, office);
+            statement.setLong(3, dateTimeID);
+            statement.setString(4, concern);
             int rowsInserted = statement.executeUpdate();   
             if (rowsInserted > 0) {
                 JOptionPane.showMessageDialog(this, "Your appointment has been booked.");
                 // Clears the Registration form
                 concernTextArea.setText("provide a brief description to your concern...");
+                concernTextArea.setForeground(new Color(153,153,153));
                 officeComboBox.setSelectedIndex(0);
                 timeComboBox.setSelectedIndex(0);
                 apptDateChooser.setCalendar(null);
             }
-            
+
             dateTimeStatement.close();
             statement.close();
             connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-            
-        apptResHistory.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "Time", "Office"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
+
+        apptResHistory.setModel(new DefaultTableModel(null, new Object[]{"id", "Date", "Time", "Office"}) {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        });
         TableColumnModel tcm2 = apptResHistory.getColumnModel();
-        tcm2.removeColumn( tcm2.getColumn(0) );
-        appoint.getAppointmentHistory(user.getId(),apptResHistory);
+        tcm2.removeColumn(tcm2.getColumn(0));
+        appoint.getAppointmentHistory(user.getId(), apptResHistory);
+        appoint.getAllAppointment(appointmentTable);
+        
     }//GEN-LAST:event_apptSubmitButtonActionPerformed
 
     private void searchTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTextField1ActionPerformed
@@ -1253,9 +1282,46 @@ public class dashboardFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchTextField1FocusLost
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void checkSchedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkSchedButtonActionPerformed
+        DefaultTableModel model = new DefaultTableModel(null, new Object[]{"Date", "Time", "Office"});
+
+        if (apptDateChooser.getDate() == null){
+            JOptionPane.showMessageDialog(rootPane, "Please select a date to view the table");
+            return;
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = dateFormat.format(apptDateChooser.getDate());
+        long office = officeID[officeComboBox.getSelectedIndex()]; 
+           
+        String appointmentSQL = "SELECT dt.date, dt.timeIN, o.room "
+        + "FROM studentappointment sa "
+        + "JOIN dateandtime dt ON sa.dateTimeID = dt.dateTimeID "
+        + "JOIN office o ON sa.officeID = o.officeID "
+        + "WHERE dt.date = ? AND sa.officeID = ? "
+        + "ORDER BY dt.date ASC, dt.timeIN ASC";
+       
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            PreparedStatement appointmentpst = connection.prepareStatement(appointmentSQL);
+
+            appointmentpst.setString(1, date);
+            appointmentpst.setLong(2, office);
+
+            ResultSet rs = appointmentpst.executeQuery();
+            while (rs.next()) {
+            String date2 = rs.getString("date");
+            String timeIN = rs.getString("timeIN");
+            String room = rs.getString("room");
+
+            model.addRow(new Object[]{date2, timeIN,room});
+            }
+            } catch (SQLException ex) {
+                Logger.getLogger(dashboardFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        appointmentTable.setEnabled(false);
+
+        appointmentTable.setModel(model);
+    }//GEN-LAST:event_checkSchedButtonActionPerformed
 
     private void concernTextAreaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_concernTextAreaFocusGained
         if (concernTextArea.getText().equals("provide a brief description to your concern...")){
@@ -1475,6 +1541,7 @@ public class dashboardFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable appointmentTable;
     private javax.swing.JButton apptButton;
     private com.toedter.calendar.JDateChooser apptDateChooser;
     private javax.swing.JPanel apptPanel;
@@ -1483,6 +1550,7 @@ public class dashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel birthDateLabel;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton checkButton;
+    private javax.swing.JButton checkSchedButton;
     private javax.swing.JTextArea concernTextArea;
     private javax.swing.JLabel contactNumberLabel;
     private com.toedter.calendar.JDateChooser dateChooser;
@@ -1499,7 +1567,6 @@ public class dashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel fnameLabel3;
     private javax.swing.JLabel fnameLabel4;
     private javax.swing.JLabel fnameLabel5;
-    private javax.swing.JButton jButton3;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
     private javax.swing.JLabel jLabel1;
@@ -1535,7 +1602,6 @@ public class dashboardFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton logoutButton;
     private javax.swing.JTable micTable;
     private javax.swing.JComboBox<String> officeComboBox;

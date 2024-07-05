@@ -53,6 +53,84 @@ public class Appointment {
         
         return model2;
     }
+    public boolean isAppointmentAvailable(String date, String timeIN, long officeID) {
+    String query = "SELECT COUNT(*) FROM dateandtime dt " +
+                   "JOIN studentappointment sa ON dt.dateTimeID = sa.dateTimeID " +
+                   "WHERE dt.date = ?  AND dt.timeIN = ? AND sa.officeID = ? ";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, date);
+            pstmt.setString(2, timeIN);
+            pstmt.setLong(3, officeID);
+
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count == 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public void getAllAppointment (JTable appointmentTable){
+        DefaultTableModel model = new DefaultTableModel(null, new Object[]{"Date", "Time", "Office"});
+
+        String appointmentSQL =  "SELECT dt.date, dt.timeIN, dt.timeOUT, sa.officeID, o.room "
+                + "FROM studentappointment sa "
+                + "JOIN dateandtime dt ON sa.dateTimeID = dt.dateTimeID "
+                + "JOIN office o ON sa.officeID = o.officeID "
+                + "ORDER BY dt.date ASC, dt.timeIN ASC";
+        try {
+                Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+                PreparedStatement appointmentpst = connection.prepareStatement(appointmentSQL);
+                
+                ResultSet rs = appointmentpst.executeQuery();
+                while (rs.next()) {
+                    String date2 = rs.getString("date");
+                    String timeIN = rs.getString("timeIN");
+                    String office = rs.getString("room");
+
+                model.addRow(new Object[]{date2, timeIN,office});
+                }
+                } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(dashboardFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        appointmentTable.setEnabled(false);
+        appointmentTable.setModel(model);
+    }
+    public boolean isReservationAvailable(String date,int equipmentID, String timeIn, String timeOut) {
+        String query = "SELECT COUNT(*) FROM dateandtime dt " +
+                   "JOIN equipmentreservation er ON dt.dateTimeID = er.dateTimeID " +
+                   "WHERE dt.date = ? AND er.equipmentID = ? AND " +
+                   "((dt.timeIN < ? AND dt.timeOUT > ?) OR " +
+                   "(dt.timeIN < ? AND dt.timeOUT > ?) OR " +
+                   "(dt.timeIN >= ? AND dt.timeOUT <= ?))";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, date);
+            pstmt.setInt(2, equipmentID);
+            pstmt.setString(3, timeOut);
+            pstmt.setString(4, timeIn);
+            pstmt.setString(5, timeOut);
+            pstmt.setString(6, timeIn);
+            pstmt.setString(7, timeIn);
+            pstmt.setString(8, timeOut);
+
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count == 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public boolean removeAppointment (int dateTimeID){
         String deleteQuery = "DELETE FROM dateandtime WHERE dateTimeID=?";
         

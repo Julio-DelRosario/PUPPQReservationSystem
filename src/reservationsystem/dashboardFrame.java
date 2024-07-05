@@ -18,6 +18,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
@@ -94,7 +96,9 @@ public class dashboardFrame extends javax.swing.JFrame {
             tcm2.removeColumn( tcm2.getColumn(0) );
         
             equip.getReservationHistory(user.getId(),resHistoryTable);
+            equip.getAllReservation(projectorTable,screenTable,speakerTable,micTable);
             appoint.getAppointmentHistory(user.getId(),apptResHistory);
+            
     }
     
 
@@ -175,7 +179,6 @@ public class dashboardFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         equipSubmitButton = new javax.swing.JButton();
         dateChooser = new com.toedter.calendar.JDateChooser();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -185,9 +188,18 @@ public class dashboardFrame extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         purposeTextArea = new javax.swing.JTextArea();
         jLabel11 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
         checkButton = new javax.swing.JButton();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        projectorTable = new javax.swing.JTable();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        screenTable = new javax.swing.JTable();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        speakerTable = new javax.swing.JTable();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        micTable = new javax.swing.JTable();
+        jLabel12 = new javax.swing.JLabel();
+        refreshButton1 = new javax.swing.JButton();
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
@@ -518,7 +530,7 @@ public class dashboardFrame extends javax.swing.JFrame {
             .addGroup(userPanelLayout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE))
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
         );
 
         parentPanel.add(userPanel, "card2");
@@ -713,6 +725,8 @@ public class dashboardFrame extends javax.swing.JFrame {
 
     parentPanel.add(apptPanel, "card3");
 
+    equipPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
     jPanel4.setBackground(new java.awt.Color(51, 0, 51));
 
     jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -734,11 +748,15 @@ public class dashboardFrame extends javax.swing.JFrame {
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
+    equipPanel.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 608, -1));
+
     jPanel5.setBackground(new java.awt.Color(255, 204, 255));
+    jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
     jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
     jLabel2.setForeground(new java.awt.Color(0, 0, 0));
     jLabel2.setText("Pick an item to make a reservation");
+    jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 310, 30));
 
     equipCheckBox1.setForeground(new java.awt.Color(0, 0, 0));
     equipCheckBox1.setText("Projector");
@@ -747,26 +765,33 @@ public class dashboardFrame extends javax.swing.JFrame {
             equipCheckBox1ActionPerformed(evt);
         }
     });
+    jPanel5.add(equipCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 85, -1));
 
     equipCheckBox3.setForeground(new java.awt.Color(0, 0, 0));
     equipCheckBox3.setText("Speaker");
     equipCheckBox3.setToolTipText("");
+    jPanel5.add(equipCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 85, -1));
 
     equipCheckBox4.setForeground(new java.awt.Color(0, 0, 0));
     equipCheckBox4.setText("Microphone");
+    jPanel5.add(equipCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 99, -1));
 
     equipCheckBox2.setForeground(new java.awt.Color(0, 0, 0));
     equipCheckBox2.setText("Projection Screen");
+    jPanel5.add(equipCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, -1, -1));
 
     professorComboBox.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             professorComboBoxActionPerformed(evt);
         }
     });
+    jPanel5.add(professorComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 220, 31));
 
     jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
     jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-    jLabel4.setText("Professor Name:");
+    jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    jLabel4.setText("Professor:");
+    jPanel5.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 70, 30));
 
     equipSubmitButton.setBackground(new java.awt.Color(0, 102, 0));
     equipSubmitButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -777,32 +802,36 @@ public class dashboardFrame extends javax.swing.JFrame {
             equipSubmitButtonActionPerformed(evt);
         }
     });
-
-    jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-    jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-    jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-    jLabel5.setText("Time:");
+    jPanel5.add(equipSubmitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 460, 130, 33));
+    jPanel5.add(dateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 220, 31));
 
     jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservationsystem/EB-2165W-02.png"))); // NOI18N
-    jLabel6.setText("jLabel6");
+    jLabel6.setText("Item 1");
+    jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 93, 82));
 
     jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservationsystem/images-1-removebg-preview.png"))); // NOI18N
     jLabel7.setText("jLabel7");
+    jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, 73, -1));
 
     jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservationsystem/isb380b-front-handle-up-2-copy-r.png"))); // NOI18N
     jLabel8.setText("jLabel8");
+    jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 82, -1));
 
     jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservationsystem/resize-1-removebg-preview (1).png"))); // NOI18N
-    jLabel9.setText("jLabel9");
+    jLabel9.setText("Item2");
+    jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 94, 80));
 
     timeComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Time Out", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM" }));
+    jPanel5.add(timeComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, 110, 30));
 
     timeComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Time In", "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM" }));
+    jPanel5.add(timeComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 100, 30));
 
     jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
     jLabel10.setForeground(new java.awt.Color(0, 0, 0));
     jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     jLabel10.setText("Purpose:");
+    jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 60, -1));
 
     purposeTextArea.setColumns(20);
     purposeTextArea.setForeground(new java.awt.Color(153, 153, 153));
@@ -816,22 +845,13 @@ public class dashboardFrame extends javax.swing.JFrame {
             purposeTextAreaFocusLost(evt);
         }
     });
+    jPanel5.add(purposeTextArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 290, 140));
 
     jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
     jLabel11.setForeground(new java.awt.Color(0, 0, 0));
     jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-    jLabel11.setText("Date:");
-
-    jTable2.setModel(new javax.swing.table.DefaultTableModel(
-        new Object [][] {
-        },
-        new String [] {
-            "Name", "Date","Time","Equipment"
-        }
-    ){
-        public boolean isCellEditable (int rowIndex, int columnIndex){return false;}
-    });
-    jScrollPane1.setViewportView(jTable2);
+    jLabel11.setText("Time:");
+    jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 70, 30));
 
     checkButton.setBackground(new java.awt.Color(51, 51, 0));
     checkButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -842,124 +862,82 @@ public class dashboardFrame extends javax.swing.JFrame {
             checkButtonActionPerformed(evt);
         }
     });
+    jPanel5.add(checkButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 440, 130, 30));
 
-    javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-    jPanel5.setLayout(jPanel5Layout);
-    jPanel5Layout.setHorizontalGroup(
-        jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel5Layout.createSequentialGroup()
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(19, 19, 19)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(52, 52, 52)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(68, 68, 68)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(72, 72, 72)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(30, 30, 30)
-                    .addComponent(equipCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(35, 35, 35)
-                    .addComponent(equipCheckBox2)
-                    .addGap(68, 68, 68)
-                    .addComponent(equipCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(63, 63, 63)
-                    .addComponent(equipCheckBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(jLabel4)
-                    .addGap(8, 8, 8)
-                    .addComponent(professorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(60, 60, 60)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(10, 10, 10)
-                    .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(11, 11, 11)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(10, 10, 10)
-                    .addComponent(timeComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(10, 10, 10)
-                    .addComponent(timeComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(60, 60, 60)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(10, 10, 10)
-                    .addComponent(purposeTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(30, 30, 30)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(149, 149, 149)
-                    .addComponent(checkButton)
-                    .addGap(42, 42, 42)
-                    .addComponent(equipSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGap(28, 28, 28))
-    );
-    jPanel5Layout.setVerticalGroup(
-        jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel5Layout.createSequentialGroup()
-            .addGap(6, 6, 6)
-            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(6, 6, 6)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(11, 11, 11)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addComponent(jLabel9)
-                .addComponent(jLabel8)
-                .addComponent(jLabel7))
-            .addGap(7, 7, 7)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(equipCheckBox3)
-                .addComponent(equipCheckBox4)
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(1, 1, 1)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(equipCheckBox1)
-                        .addComponent(equipCheckBox2))))
-            .addGap(20, 20, 20)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel4)
-                .addComponent(professorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(9, 9, 9)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(timeComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(timeComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(9, 9, 9)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel10)
-                .addComponent(purposeTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(checkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(equipSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap(24, Short.MAX_VALUE))
-    );
+    jScrollPane1.setEnabled(false);
 
-    javax.swing.GroupLayout equipPanelLayout = new javax.swing.GroupLayout(equipPanel);
-    equipPanel.setLayout(equipPanelLayout);
-    equipPanelLayout.setHorizontalGroup(
-        equipPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-    );
-    equipPanelLayout.setVerticalGroup(
-        equipPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(equipPanelLayout.createSequentialGroup()
-            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(0, 0, 0)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-    );
+    projectorTable.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+        },
+        new String [] {
+            "Date","Time In","Time Out"
+        }
+    ){
+        public boolean isCellEditable (int rowIndex, int columnIndex){return false;}
+    });
+    projectorTable.getTableHeader().setReorderingAllowed(false);
+    jScrollPane1.setViewportView(projectorTable);
+
+    jTabbedPane2.addTab("Item 1", jScrollPane1);
+
+    screenTable.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+        },
+        new String [] {
+            "Date","Time In","Time Out"
+        }
+    ));
+    screenTable.setEnabled(false);
+    screenTable.getTableHeader().setReorderingAllowed(false);
+    jScrollPane6.setViewportView(screenTable);
+
+    jTabbedPane2.addTab("Item 2", jScrollPane6);
+
+    speakerTable.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+        },
+        new String [] {
+            "Date","Time In","Time Out"
+        }
+    ));
+    speakerTable.setEnabled(false);
+    speakerTable.getTableHeader().setReorderingAllowed(false);
+    jScrollPane7.setViewportView(speakerTable);
+
+    jTabbedPane2.addTab("Item 3", jScrollPane7);
+
+    micTable.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+
+        },
+        new String [] {
+            "Date","Time In","Time Out"
+        }
+    ));
+    micTable.setEnabled(false);
+    micTable.getTableHeader().setReorderingAllowed(false);
+    jScrollPane8.setViewportView(micTable);
+
+    jTabbedPane2.addTab("Item 4", jScrollPane8);
+
+    jPanel5.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 160, 280, 280));
+
+    jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+    jLabel12.setForeground(new java.awt.Color(0, 0, 0));
+    jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    jLabel12.setText("Date:");
+    jPanel5.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 70, 30));
+
+    refreshButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    refreshButton1.setText("refresh");
+    refreshButton1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            refreshButton1ActionPerformed(evt);
+        }
+    });
+    jPanel5.add(refreshButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 440, 80, 30));
+
+    equipPanel.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 66, 608, 509));
 
     parentPanel.add(equipPanel, "card4");
 
@@ -1051,19 +1029,39 @@ public class dashboardFrame extends javax.swing.JFrame {
         boolean equipment2 = equipCheckBox2.isSelected();
         boolean equipment3 = equipCheckBox3.isSelected();
         boolean equipment4 = equipCheckBox4.isSelected();
+        String purpose = purposeTextArea.getText();
 
         if (!equipment1 && !equipment2 && !equipment3 && !equipment4){
             JOptionPane.showMessageDialog(rootPane, "Please select an equipment");
+            return;
+        }
+        else if (dateChooser.getDate() == null){
+            JOptionPane.showMessageDialog(rootPane, "Please select a date for your reservation");
+            return;
+        }
+        else if(gettimeIN == 0 || gettimeOUT == 0){
+            JOptionPane.showMessageDialog(rootPane, "Please select a time for your reservation");
+            return;
+        }
+        else if(purpose.equals("Provide a brief description...") || purpose.isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Provide a short description to your reservation");
+            return;
         }
         else{
             JOptionPane.showMessageDialog(this, "Equipment reserved successfully!");
+            
+            resHistoryTable.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "Time In","Time Out", "Equipment"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
+            
+            projectorTable.setModel(new DefaultTableModel(null,new Object[]{"Date","Time In","Time Out"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
+            screenTable.setModel(new DefaultTableModel(null,new Object[]{"Date","Time In","Time Out"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
+            speakerTable.setModel(new DefaultTableModel(null,new Object[]{"Date","Time In","Time Out"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
+            micTable.setModel(new DefaultTableModel(null,new Object[]{"Date","Time In","Time Out"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
         }
 
         int studentID = user.getId();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = dateFormat.format(dateChooser.getDate());
-        String purpose = purposeTextArea.getText();
 
         List<Integer> equipmentIDs = new ArrayList<>();
         if (equipCheckBox1.isSelected()) equipmentIDs.add(1); 
@@ -1119,10 +1117,12 @@ public class dashboardFrame extends javax.swing.JFrame {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        resHistoryTable.setModel(new DefaultTableModel(null,new Object[]{"id","Date", "Time In","Time Out", "Equipment"}){public boolean isCellEditable(int rowIndex,int oolumnIndex){return false;}});
         TableColumnModel tcm = resHistoryTable.getColumnModel();
         tcm.removeColumn( tcm.getColumn(0) );
         equip.getReservationHistory(user.getId(),resHistoryTable);
+        equip.getAllReservation(projectorTable,screenTable,speakerTable,micTable);
+        
+        
     }//GEN-LAST:event_equipSubmitButtonActionPerformed
 
     private void resHistoryTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resHistoryTableMouseClicked
@@ -1240,7 +1240,93 @@ public class dashboardFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_concernTextAreaFocusLost
 
     private void checkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkButtonActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel model1 = new DefaultTableModel(null, new Object[]{"Date", "Time In", "Time Out"});
+        DefaultTableModel model2 = new DefaultTableModel(null, new Object[]{"Date", "Time In", "Time Out"});
+        DefaultTableModel model3 = new DefaultTableModel(null, new Object[]{"Date", "Time In", "Time Out"}); 
+        DefaultTableModel model4 = new DefaultTableModel(null, new Object[]{"Date", "Time In", "Time Out"}); 
+        if (dateChooser.getDate() == null){
+            JOptionPane.showMessageDialog(rootPane, "Please select a date to view the table");
+            return;
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = dateFormat.format(dateChooser.getDate());
+            
+
+        String projectorSQL = "SELECT dt.date, dt.timeIN, dt.timeOUT, er.equipmentID "
+                + "FROM equipmentreservation er "
+                + "JOIN dateandtime dt ON er.datetimeID = dt.dateTimeID "
+                + "JOIN equipment e ON er.equipmentID = e.equipmentID "
+                + "WHERE dt.date = ? and er.equipmentID = 1 ORDER BY dt.date ASC, dt.timeIN ASC";
+        String screenSQL = "SELECT dt.date, dt.timeIN, dt.timeOUT, er.equipmentID "
+                + "FROM equipmentreservation er "
+                + "JOIN dateandtime dt ON er.datetimeID = dt.dateTimeID "
+                + "JOIN equipment e ON er.equipmentID = e.equipmentID "
+                + "WHERE dt.date = ? and er.equipmentID = 2 ORDER BY dt.date ASC, dt.timeIN ASC";
+        String speakerSQL = "SELECT dt.date, dt.timeIN, dt.timeOUT, er.equipmentID "
+                + "FROM equipmentreservation er "
+                + "JOIN dateandtime dt ON er.datetimeID = dt.dateTimeID "
+                + "JOIN equipment e ON er.equipmentID = e.equipmentID "
+                + "WHERE dt.date = ? and er.equipmentID = 3 ORDER BY dt.date ASC, dt.timeIN ASC";
+        String micSQL = "SELECT dt.date, dt.timeIN, dt.timeOUT, er.equipmentID "
+                + "FROM equipmentreservation er "
+                + "JOIN dateandtime dt ON er.datetimeID = dt.dateTimeID "
+                + "JOIN equipment e ON er.equipmentID = e.equipmentID "
+                + "WHERE dt.date = ? and er.equipmentID = 4 ORDER BY dt.date ASC, dt.timeIN ASC";
+        try {
+                Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+                PreparedStatement reservationpst1 = connection.prepareStatement(projectorSQL);
+                PreparedStatement reservationpst2 = connection.prepareStatement(screenSQL);
+                PreparedStatement reservationpst3 = connection.prepareStatement(speakerSQL);
+                PreparedStatement reservationpst4 = connection.prepareStatement(micSQL);
+                
+                reservationpst1.setString(1, date);
+                reservationpst2.setString(1, date);
+                reservationpst3.setString(1, date);
+                reservationpst4.setString(1, date);
+                
+                ResultSet rs1 = reservationpst1.executeQuery();
+                ResultSet rs2 = reservationpst2.executeQuery();
+                ResultSet rs3 = reservationpst3.executeQuery();
+                ResultSet rs4 = reservationpst4.executeQuery();
+                while (rs1.next()) {
+                String date2 = rs1.getString("date");
+                String timeIN = rs1.getString("timeIN");
+                String timeOUT = rs1.getString("timeOUT");
+
+                model1.addRow(new Object[]{date2, timeIN,timeOUT});
+                }
+                while (rs2.next()) {
+                String date2 = rs2.getString("date");
+                String timeIN = rs2.getString("timeIN");
+                String timeOUT = rs2.getString("timeOUT");
+
+                model2.addRow(new Object[]{date2, timeIN,timeOUT});
+                }
+                while (rs3.next()) {
+                String date2 = rs3.getString("date");
+                String timeIN = rs3.getString("timeIN");
+                String timeOUT = rs3.getString("timeOUT");
+                model3.addRow(new Object[]{date2, timeIN,timeOUT});
+                }
+                while (rs4.next()) {
+                String date2 = rs4.getString("date");
+                String timeIN = rs4.getString("timeIN");
+                String timeOUT = rs4.getString("timeOUT");
+
+                model4.addRow(new Object[]{date2, timeIN,timeOUT});
+                }
+                } catch (SQLException ex) {
+                    Logger.getLogger(dashboardFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                projectorTable.setEnabled(false);
+                screenTable.setEnabled(false);
+                speakerTable.setEnabled(false);
+                micTable.setEnabled(false);
+                
+                projectorTable.setModel(model1);
+                screenTable.setModel(model2);
+                speakerTable.setModel(model3);
+                micTable.setModel(model4);
     }//GEN-LAST:event_checkButtonActionPerformed
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
@@ -1309,10 +1395,15 @@ public class dashboardFrame extends javax.swing.JFrame {
 
     private void purposeTextAreaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_purposeTextAreaFocusLost
         if (purposeTextArea.getText().equals("")){
-            purposeTextArea.setText("provide a brief description...");
+            purposeTextArea.setText("Provide a brief description...");
             purposeTextArea.setForeground(new Color(153,153,153));
         }
     }//GEN-LAST:event_purposeTextAreaFocusLost
+
+    private void refreshButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButton1ActionPerformed
+        equip.getAllReservation(projectorTable,screenTable,speakerTable,micTable);
+        dateChooser.setCalendar(null);
+    }//GEN-LAST:event_refreshButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1382,10 +1473,10 @@ public class dashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1405,20 +1496,28 @@ public class dashboardFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JButton logoutButton;
+    private javax.swing.JTable micTable;
     private javax.swing.JComboBox<String> officeComboBox;
     private javax.swing.JPanel parentPanel;
     private javax.swing.JComboBox<String> professorComboBox;
     private javax.swing.JLabel programLabel;
+    private javax.swing.JTable projectorTable;
     private javax.swing.JTextArea purposeTextArea;
     private javax.swing.JButton refreshButton;
+    private javax.swing.JButton refreshButton1;
     private javax.swing.JTable resHistoryTable;
+    private javax.swing.JTable screenTable;
     private javax.swing.JTextField searchTextField1;
+    private javax.swing.JTable speakerTable;
     private javax.swing.JLabel studNumApptLabel;
     private javax.swing.JLabel studentNumberLabel;
     private javax.swing.JLabel studentNumberLabel1;

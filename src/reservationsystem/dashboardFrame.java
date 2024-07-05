@@ -36,6 +36,7 @@ public class dashboardFrame extends javax.swing.JFrame {
     EquipmentReservation equip = new EquipmentReservation();
     Appointment appoint = new Appointment();
     Search search = new Search();
+    Date date = new Date();
     private String studentNumber;
     private User user;
     long professorID[];
@@ -100,6 +101,9 @@ public class dashboardFrame extends javax.swing.JFrame {
             equip.getAllReservation(projectorTable,screenTable,speakerTable,micTable);
             appoint.getAppointmentHistory(user.getId(),apptResHistory);
             appoint.getAllAppointment(appointmentTable);
+        //Date Constraints
+            apptDateChooser.setSelectableDateRange(date,null);
+            dateChooser.setSelectableDateRange(date,null);
             
     }
     

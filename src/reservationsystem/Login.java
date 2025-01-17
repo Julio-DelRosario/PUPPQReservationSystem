@@ -699,7 +699,6 @@ public class Login extends javax.swing.JFrame {
         try {
             Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
                
-            String ContactSQL = "INSERT INTO contact(email, contactNumber, address) VALUES (?,?,?)";
             PreparedStatement contactStatement = connection.prepareStatement(ContactSQL, Statement.RETURN_GENERATED_KEYS);
             contactStatement.setString(1, email);
             contactStatement.setString(2, contactNumber);
@@ -714,7 +713,6 @@ public class Login extends javax.swing.JFrame {
                 }
             }
             
-            String sql = "INSERT INTO student (firstName, lastName, sex, studentNumber, birthDate, program, password, yearSectionID, contactID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, firstName);
